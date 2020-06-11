@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect to DB 
 const client = new Client({
-    connectionString: "postgres://root:pass@postgres:5432/eventsAPI"
+    connectionString: "postgres://root:pass@postgres:5432/events"
 });
 
 client
@@ -30,3 +30,6 @@ app.get('/', function (req, res) {
         }
     });
 });
+
+// listen for connection on localhost
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
