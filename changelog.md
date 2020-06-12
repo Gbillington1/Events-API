@@ -8,7 +8,8 @@ All commits are documented in this file.
  - frontend from to collect userdata
  - post request sending userdata
  - backend receiving userdata
-
+ - function to select user table from DB
+ - send user table to frontend
 
 ## [06/10/2020]
 ### Added 

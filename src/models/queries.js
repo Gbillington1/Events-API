@@ -1,6 +1,18 @@
 // add user to DB
 function addUser(client, data) {
-    client.query('INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.username, data.email, data.password])
+    client.query('INSERT INTO users (first_name, last_name, username, email, user_password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.username, data.email, data.password])
+}
+
+function returnUser(client) {
+    return new Promise(function (resolve, reject) {
+        client.query('SELECT * FROM users', function (err, response) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(response.rows)
+            }
+        })
+    })
 }
 
 // add event to DB
@@ -15,6 +27,7 @@ function addRSVP(client, data) {
 
 module.exports = {
     'addUser': addUser,
+    'returnUser': returnUser,
     'addEvent': addEvent,
     'addRSVP': addRSVP
 }

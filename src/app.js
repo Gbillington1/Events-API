@@ -32,11 +32,25 @@ app.get('/', function (req, res) {
     });
 });
 
+// receive post request
 app.post('/addUser', function(req, res) {
+    // add data from form to userData obj
     var userData = req.body;
 
+    // add userData to DB
     queries.addUser(client, userData);
-    res.send("user added");
+    
+    // tests function to check if addUser is working correctly
+    // returns users table => sends it to frontend
+    queries.returnUser(client).then(function(rows, error) {
+        if (typeof error !== "undefined") {
+            res.send({ 'error': true });
+
+            return;
+        }
+
+        res.send(rows);
+    })
 })
 
 
