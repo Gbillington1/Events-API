@@ -9,7 +9,43 @@
 </head>
 
 <body>
-    <h1>Test page</h1>
+    <form id='addUser'>
+        <label for='firstName'>First Name:</label>
+        <input type='text' id='firstName' name='firstName' placeholder="first name here.">
+
+        <label for='lastName'>Last Name:</label>
+        <input type='text' id='lastName' name='lastName' placeholder="last name here.">
+
+        <label for='username'>Userame:</label>
+        <input type='text' id='username' name='username' placeholder="username here.">
+
+        <label for='email'>Email:</label>
+        <input type='email' id='email' name='email' placeholder="email here.">
+
+        <label for='password'>Password:</label>
+        <input type='password' id='password' name='password' placeholder="password here.">
+
+        <button type='submit' id='submit'>Create User</button>
+    </form>
+
+    <script>
+        $('#addUser').submit(function(e) {
+            e.preventDefault();
+
+            // there must be some way to hide the password in the network tab
+            $.post('/addUser', {
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                username: $('#username').val(),
+                email: $('#email').val(),
+                password: $('#password').val()
+            },
+            function(data, status) {
+                console.log(data)
+            })
+        })
+    </script>
+
 </body>
 
 </html>

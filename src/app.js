@@ -3,6 +3,7 @@ const app = express();
 const port = parseInt(process.env.EXPOSED_PORT);
 const fs = require('fs');
 const { Client } = require('pg');
+const queries = require('./models/queries');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -30,6 +31,14 @@ app.get('/', function (req, res) {
         }
     });
 });
+
+app.post('/addUser', function(req, res) {
+    var userData = req.body;
+
+    queries.addUser(client, userData);
+    res.send("user added");
+})
+
 
 // listen for connection on localhost
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))

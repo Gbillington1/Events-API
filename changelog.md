@@ -4,6 +4,11 @@ All commits are documented in this file.
 ## [06/11/2020]
 ### Added 
  - RSVP table in DB
+ - functions to add users, events, and rsvps
+ - frontend from to collect userdata
+ - post request sending userdata
+ - backend receiving userdata
+
 
 ## [06/10/2020]
 ### Added 

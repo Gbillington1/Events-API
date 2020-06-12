@@ -3,7 +3,8 @@ CREATE TABLE users (
 	first_name VARCHAR(255) NOT NULL,
 	last_name VARCHAR(255) NOT NULL,
 	username VARCHAR(255) NOT NULL,
-	email VARCHAR(255) NOT NULL
+	email VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE events (
@@ -14,7 +15,7 @@ CREATE TABLE events (
 	event_time TIMESTAMP NOT NULL
 );
 
-CREATE TABLE rsvp (
+CREATE TABLE rsvps (
 	rsvp_id serial PRIMARY KEY,
 	linked_event_id VARCHAR(255) NOT NULL,
 	linked_event_name VARCHAR(255) NOT NULL,
