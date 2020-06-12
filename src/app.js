@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
     });
 });
 
-// receive post request
+// receive post request to /addUser endpoint
 app.post('/addUser', function (req, res) {
     // add data from form to userData obj
     var userData = req.body;
@@ -40,7 +40,7 @@ app.post('/addUser', function (req, res) {
     // add userData to DB
     queries.addUser(client, userData)
 
-        // tests function to check if addUser is working correctly
+    // tests function to check if addUser is working correctly
     // returns users table => sends it to frontend
     queries.returnUser(client).then(function (rows, error) {
         if (typeof error !== "undefined") {
@@ -51,9 +51,27 @@ app.post('/addUser', function (req, res) {
 
         res.send(rows[rows.length - 1]);
     })
-
+    
 })
 
+// reveive post request to /addEvent endpoint
+app.post('/addEvent', function (req, res) {
+    // form eventData with data form frontend
+    var eventData = req.body;
+    // add event to DB
+    queries.addEvent(client, eventData);
+    
+    // get event from DB and send it to frontend
+    queries.returnEvent(client).then(function (rows, error) {
+        if (typeof error !== "undefined") {
+            res.send({ 'error': true });
+            
+            return;
+        }
+        
+        res.send(rows[rows.length - 1]);
+    })
+});
 
 // listen for connection on localhost
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))

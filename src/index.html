@@ -89,7 +89,7 @@
             grid-row-end: 7;
             justify-self: center;
             align-self: center;
-        
+
         }
 
         #createEvent {
@@ -99,7 +99,7 @@
             grid-row-end: 6;
             justify-self: center;
             align-self: center;
-        
+
         }
 
         #description {
@@ -147,8 +147,7 @@
             <input type='text' class='col2' id='name' name='name' placeholder="Event name here.">
 
             <label id='label2' class='col1' for='description'>Event Description:</label>
-            <textarea class='col2' id='description' name='description'
-                placeholder="Event description here."></textarea>
+            <textarea class='col2' id='description' name='description' placeholder="Event description here."></textarea>
 
             <label id='label3' class='col1' for='date'>Event Date:</label>
             <input type='date' class='col2' id='date' name='date'>
@@ -164,6 +163,7 @@
     </div>
 
     <script>
+        // add user form
         $('#addUser').submit(function (e) {
             e.preventDefault();
 
@@ -174,11 +174,25 @@
                 username: $('#username').val(),
                 email: $('#email').val(),
                 password: $('#password').val()
-            },
-                function (data, status) {
-                    console.log(data)
-                })
+            }, function (data, status) {
+                console.log(data)
+            })
         })
+
+        // add event form
+        $('#addEvent').submit(function (e) {
+            e.preventDefault();
+
+            $.post('/addEvent', {
+                name: $('#name').val(),
+                description: $('#description').val(),
+                date: $('#date').val(),
+                time: $('#time').val()
+            }, function (data, status) {
+                console.log(data)
+            })
+        })
+
     </script>
 
 </body>

@@ -5,6 +5,11 @@ All commits are documented in this file.
 ### Added
  - styling for creating user
  - create event form
+ - backend to receive event data from frontend and add it to DB
+ - select event from DB and send it to frontend
+
+### Changed
+ - Date and Time datatypes in event table 
 
 ### Removed
  - linked_username and linked_event_name columns from RSVP
@@ -25,5 +30,6 @@ All commits are documented in this file.
  - basic tables for api
  - changelog
 
+[06/12/2020]: https://github.com/Gbillington1/Events-API/compare/0c7c2df..HEAD
 [06/11/2020]: https://github.com/Gbillington1/Events-API/compare/277c5bf..76c0318
 [06/10/2020]: https://github.com/Gbillington1/Events-API/compare/d3b101d..c0e50d9
