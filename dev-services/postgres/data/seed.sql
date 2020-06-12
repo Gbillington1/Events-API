@@ -13,3 +13,12 @@ CREATE TABLE events (
 	event_date DATE NOT NULL,
 	event_time TIMESTAMP NOT NULL
 );
+
+CREATE TABLE rsvp (
+	rsvp_id serial PRIMARY KEY,
+	linked_event_id VARCHAR(255) NOT NULL,
+	linked_event_name VARCHAR(255) NOT NULL,
+	linked_user_id VARCHAR(255) NOT NULL,
+	linked_username VARCHAR(255) NOT NULL,
+	rsvp_status VARCHAR(255) NOT NULL
+)
