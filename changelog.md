@@ -4,6 +4,7 @@ All commits are documented in this file.
 ## [06/12/2020]
 ### Added
  - styling for creating user
+ - create event form
 
 ### Removed
  - linked_username and linked_event_name columns from RSVP

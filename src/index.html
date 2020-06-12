@@ -15,7 +15,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        #createUserHead {
+        .header {
             text-align: center;
         }
 
@@ -24,10 +24,17 @@
             width: 350px;
         }
 
-        .wrapper {
+        #addUser {
             display: grid;
             grid-template-columns: 100px 250px;
             grid-template-rows: 25px 25px 25px 25px 25px 25px;
+            grid-row-gap: 5px;
+        }
+
+        #addEvent {
+            display: grid;
+            grid-template-columns: 100px 250px;
+            grid-template-rows: 25px 75px 25px 25px 25px;
             grid-row-gap: 5px;
         }
 
@@ -36,7 +43,6 @@
             grid-column-end: 2;
             justify-self: left;
             align-self: center;
-
         }
 
         .col2 {
@@ -76,13 +82,28 @@
             grid-row-end: 6;
         }
 
-        #btn {
+        #createUser {
             grid-column-start: 1;
             grid-column-end: 3;
             grid-row-start: 6;
             grid-row-end: 7;
             justify-self: center;
             align-self: center;
+        
+        }
+
+        #createEvent {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 5;
+            grid-row-end: 6;
+            justify-self: center;
+            align-self: center;
+        
+        }
+
+        #description {
+            height: 80%;
         }
     </style>
 
@@ -91,11 +112,11 @@
 <body>
     <div id="container">
 
-        <h1 id='createUserHead'>
+        <h1 class='header'>
             Create User
         </h1>
 
-        <form id='addUser' class="wrapper">
+        <form id='addUser'>
             <label id='label1' class='col1' for='firstName'>First Name:</label>
             <input type='text' class='col2' id='firstName' name='firstName' placeholder="First name here.">
 
@@ -111,9 +132,34 @@
             <label id='label5' class='col1' for='password'>Password:</label>
             <input type='password' class='col2' id='password' name='password' placeholder="Password here.">
 
-            <div id='btn'>
+            <div id='createUser'>
                 <button type='submit' id='submit'>Create User</button>
             </div>
+
+        </form>
+
+        <h1 class='header'>
+            Create Event
+        </h1>
+
+        <form id='addEvent'>
+            <label id='label1' class='col1' for='name'>Event Name:</label>
+            <input type='text' class='col2' id='name' name='name' placeholder="Event name here.">
+
+            <label id='label2' class='col1' for='description'>Event Description:</label>
+            <textarea class='col2' id='description' name='description'
+                placeholder="Event description here."></textarea>
+
+            <label id='label3' class='col1' for='date'>Event Date:</label>
+            <input type='date' class='col2' id='date' name='date'>
+
+            <label id='label4' class='col1' for='time'>Event Time:</label>
+            <input type='time' class='col2' id='time' name='time'>
+
+            <div id='createEvent'>
+                <button type='submit' id='submit'>Create Event</button>
+            </div>
+
         </form>
     </div>
 
