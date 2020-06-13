@@ -4,6 +4,7 @@ const port = parseInt(process.env.EXPOSED_PORT);
 const fs = require('fs');
 const { Client } = require('pg');
 const queries = require('./models/queries');
+const users = require('./models/users');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,16 +34,16 @@ app.get('/', function (req, res) {
 });
 
 // receive post request to /addUser endpoint
-app.post('/addUser', function (req, res) {
+app.post('/postUser', function (req, res) {
     // add data from form to userData obj
     var userData = req.body;
 
     // add userData to DB
-    queries.addUser(client, userData)
+    users.create(client, userData)
 
     // tests function to check if addUser is working correctly
     // returns users table => sends it to frontend
-    queries.returnUser(client).then(function (rows, error) {
+    users.all(client).then(function (rows, error) {
         if (typeof error !== "undefined") {
             res.send({ 'error': true });
 
@@ -55,7 +56,7 @@ app.post('/addUser', function (req, res) {
 })
 
 // reveive post request to /addEvent endpoint
-app.post('/addEvent', function (req, res) {
+app.post('/postEvent', function (req, res) {
     // form eventData with data form frontend
     var eventData = req.body;
     // add event to DB

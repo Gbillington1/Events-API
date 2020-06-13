@@ -168,13 +168,14 @@
             e.preventDefault();
 
             // there must be some way to hide the password in the network tab
-            $.post('/addUser', {
+            $.post('/postUser', {
                 firstName: $('#firstName').val(),
                 lastName: $('#lastName').val(),
                 username: $('#username').val(),
                 email: $('#email').val(),
                 password: $('#password').val()
             }, function (data, status) {
+                
                 console.log(data)
             })
         })
@@ -183,7 +184,7 @@
         $('#addEvent').submit(function (e) {
             e.preventDefault();
 
-            $.post('/addEvent', {
+            $.post('/postEvent', {
                 name: $('#name').val(),
                 description: $('#description').val(),
                 date: $('#date').val(),
