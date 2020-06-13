@@ -1,12 +1,12 @@
-// create a user
+// create an event
 function create(client, data) {
-    client.query('INSERT INTO users (first_name, last_name, username, email, user_password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.username, data.email, data.password]);
+    client.query('INSERT INTO events (event_name, event_description, event_date, event_time) VALUES ($1, $2, $3, $4)', [data.name, data.description, data.date, data.time]);
 }
 
-// return user with specific id
+// return event with specific id
 function retrieve(client, id) {
     return new Promise(function (resolve, reject) {
-        client.query('SELECT * FROM users WHERE userid = $1', [id], function (err, response) {
+        client.query('SELECT * FROM events WHERE event_id = $1', [id], function (err, response) {
             if (err) {
                 reject(err);
             } else {
@@ -16,15 +16,15 @@ function retrieve(client, id) {
     })
 } 
 
-// update user with specific id
+// update event with specific id
 function update(client, data) {
-    client.query('UPDATE users SET first_name = $1, last_name = $2, username = $3, email = $4, user_password = $5 WHERE userid = $6', [data.firstName, data.lastName, data.username, data.email, data.password, data.userid])
+    client.query('UPDATE events SET event_name = $1, event_description = $2, event_date = $3, event_time = $4 WHERE event_id = $5', [data.name, data.description, data.date, data.time, data.event_id])
 }
 
 // return all rows
 function all(client) {
     return new Promise(function (resolve, reject) {
-        client.query('SELECT * FROM users', function (err, response) {
+        client.query('SELECT * FROM events', function (err, response) {
             if (err) {
                 reject(err)
             } else {
@@ -36,7 +36,7 @@ function all(client) {
 
 // function to delete row (cant use delete as function name because it is a reseverd word in JS)
 function remove(client, id) {
-    client.query('DELETE FROM users WHERE userid = $1', [id]);
+    client.query('DELETE FROM events WHERE event_id = $1', [id]);
 }
 
 module.exports = {

@@ -3,8 +3,9 @@ const app = express();
 const port = parseInt(process.env.EXPOSED_PORT);
 const fs = require('fs');
 const { Client } = require('pg');
-const queries = require('./models/queries');
 const users = require('./models/users');
+const events = require('./models/events');
+const rsvps = require('./models/rsvps');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -60,10 +61,10 @@ app.post('/postEvent', function (req, res) {
     // form eventData with data form frontend
     var eventData = req.body;
     // add event to DB
-    queries.addEvent(client, eventData);
+    events.create(client, eventData);
     
     // get event from DB and send it to frontend
-    queries.returnEvent(client).then(function (rows, error) {
+    events.all(client).then(function (rows, error) {
         if (typeof error !== "undefined") {
             res.send({ 'error': true });
             

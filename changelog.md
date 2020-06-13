@@ -7,16 +7,16 @@ All commits are documented in this file.
  - create event form
  - backend to receive event data from frontend and add it to DB
  - select event from DB and send it to frontend
- - 3 separate modules for users, events, and rsvps
- - retrieve(), update(), and delete() for users
+ - 3 separate models for users, events, and rsvps
+ - retrieve(), update(), and delete() for 3 models
 
 ### Changed
  - Date and Time datatypes in event table 
- - addUser to create()
- - returnUsers to all()
+ - migrated query functions over to 3 models
 
 ### Removed
  - linked_username and linked_event_name columns from RSVP
+ - queries model
 
 ## [06/11/2020]
 ### Added 
