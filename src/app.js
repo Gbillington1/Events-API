@@ -7,6 +7,20 @@ const users = require('./models/users');
 const events = require('./models/events');
 const rsvps = require('./models/rsvps');
 
+// validate data
+function validate(data) {
+    var keys = Object.keys(data);
+    var values = Object.values(data);
+    var err = [];
+    for (var i = 0; i < values.length; i++) {
+        if (typeof values[i] == undefined || values[i] == "") {
+            //throw error
+            err.push('Invalid ' + keys[i]);
+        }
+    }
+    return err;
+}
+
 app.use(express.urlencoded({ extended: true }));
 
 //connect to DB 
@@ -36,43 +50,61 @@ app.get('/', function (req, res) {
 
 // receive post request to /addUser endpoint
 app.post('/postUser', function (req, res) {
-    // add data from form to userData obj
-    var userData = req.body;
-
-    // add userData to DB
-    users.create(client, userData)
-
-    // tests function to check if addUser is working correctly
-    // returns users table => sends it to frontend
-    users.all(client).then(function (rows, error) {
-        if (typeof error !== "undefined") {
-            res.send({ 'error': true });
-
-            return;
-        }
-
-        res.send(rows[rows.length - 1]);
-    })
+    // validate data
+    var status = validate(req.body);
+    // data is invalid
+    if (!status.length == 0) {
+        throw new Error(status)
+        // data is validated 
+    } else {
+        // add data from form to userData obj
+        var userData = req.body;
+    
+        // add userData to DB
+        users.create(client, userData)
+    
+        // tests function to check if addUser is working correctly
+        // returns users table => sends it to frontend
+        users.all(client).then(function (rows, error) {
+            if (typeof error !== "undefined") {
+                res.send({ 'error': true });
+    
+                return;
+            }
+    
+            res.send(rows[rows.length - 1]);
+        })
+    }
     
 })
 
 // reveive post request to /addEvent endpoint
 app.post('/postEvent', function (req, res) {
-    // form eventData with data form frontend
-    var eventData = req.body;
-    // add event to DB
-    events.create(client, eventData);
-    
-    // get event from DB and send it to frontend
-    events.all(client).then(function (rows, error) {
-        if (typeof error !== "undefined") {
-            res.send({ 'error': true });
-            
-            return;
-        }
+
+    // validate data
+    var status = validate(req.body);
+
+    // data is invalid
+    if (!status.length == 0) {
+        throw new Error(status);
+        // data is validated
+    } else {
+        // form eventData with data form frontend
+        var eventData = req.body;
+        // add event to DB
+        events.create(client, eventData);
         
-        res.send(rows[rows.length - 1]);
-    })
+        // get event from DB and send it to frontend
+        events.all(client).then(function (rows, error) {
+            if (typeof error !== "undefined") {
+                res.send({ 'error': true });
+                
+                return;
+            }
+            
+            res.send(rows[rows.length - 1]);
+        })
+    }
 });
 
 // listen for connection on localhost

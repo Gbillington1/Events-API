@@ -1,6 +1,10 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/14/2020]
+### Added 
+ - basic data validation
+
 ## [06/12/2020]
 ### Added
  - styling for creating user
