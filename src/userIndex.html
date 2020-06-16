@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    <h1 id='welcome'>Welcome</h1>
+    <h1 id='welcome'></h1>
+
     <script>
         function getCookie(key) {
             const regexp = new RegExp(`.*${key}=([^;]*)`);
@@ -19,14 +20,17 @@
                 return result[1];
             }
         }
-        var id = getCookie('userID');
-        console.log(id)
+        var id = getCookie('userId');
+        var username = getCookie('username');
+
         $(function () {
 
             $.get('/getUser', {
-                userId: id
+                userId: id,
+                userbname: username
             }, function (data, status) {
-                $('#welcome').html('Welcome ' + data[0].first_name);
+                $('#welcome').html('Welcome ' + data.firstName);
+                console.log(data)
             })
         })
     </script>

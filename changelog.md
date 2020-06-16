@@ -1,12 +1,17 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/16/2020]
+### Added
+ - function in users model that creates a data object for frontend
+ - personalize endpoints for redirect after sign up
+
 ## [06/15/2020]
 ### Added 
  - frontend validation 
  - error handling for backend validation
  - cookie for userID 
- - redirect to page that gets user data (with userID cookie)
+ - redirect to page that gets user data (with userId cookie)
 
 ## [06/14/2020]
 ### Added 

@@ -39,10 +39,25 @@ function remove(client, id) {
     client.query('DELETE FROM users WHERE userid = $1', [id]);
 }
 
+// forms a data object for the frontend
+function format(data) {
+    var frontendData = {};
+
+    frontendData.userId = data.userid;
+    frontendData.firstName = data.first_name;
+    frontendData.lastName = data.last_name;
+    frontendData.username = data.username;
+    frontendData.email = data.email;
+    frontendData.password = data.user_password;
+
+    return frontendData;
+}
+
 module.exports = {
     'create': create,
     'retrieve': retrieve,
     'update': update,
     'all': all,
-    'remove': remove
+    'remove': remove,
+    'format': format
 }

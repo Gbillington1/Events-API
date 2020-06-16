@@ -7,9 +7,6 @@ const cookieParser = require('cookie-parser');
 const users = require('./models/users');
 const events = require('./models/events');
 const rsvps = require('./models/rsvps');
-const { SSL_OP_COOKIE_EXCHANGE } = require('constants');
-const { nextTick } = require('process');
-
 
 // validate data
 function validate(data) {
@@ -54,8 +51,7 @@ app.get('/', function (req, res) {
     });
 });
 
-
-app.get('/user', function (req, res) {
+app.get('/user/:username', function (req, res) {
     fs.readFile('./userIndex.html', function (err, data) {
         if (err) {
             res.writeHead(404);
@@ -71,16 +67,14 @@ app.get('/user', function (req, res) {
 
 app.get('/getUser', function(req, res) {
     // req.params was empty, why does req.query work?
-    console.log(req.query.userId)
     users.retrieve(client, req.query.userId).then(function (row, error) {
         if (typeof error !== "undefined") {
             res.send({ 'error': true });
             
             return;
         }
-        
-        console.log(row);
-        res.send(row)
+        var data = users.format(row[0]);
+        res.send(data)
     })
 })
 
@@ -106,8 +100,11 @@ app.post('/postUser', function (req, res, next) {
                 return;
             }
             
-            res.cookie('userID', rows[rows.length - 1].userid);
-            res.send(rows[rows.length - 1]);
+            var data = users.format(rows[rows.length - 1]);
+
+            res.cookie('userId', data.userId);
+            res.cookie('usename', data.username);
+            res.send(data);
         })
     }
 
