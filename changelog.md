@@ -45,6 +45,8 @@ All commits are documented in this file.
  - basic tables for api
  - changelog
 
-[06/12/2020]: https://github.com/Gbillington1/Events-API/compare/0c7c2df..HEAD
+[06/15/2020]: https://github.com/Gbillington1/Events-API/compare/68239d0..HEAD
+[06/14/2020]: https://github.com/Gbillington1/Events-API/compare/34e1f87..34e1f87
+[06/12/2020]: https://github.com/Gbillington1/Events-API/compare/0c7c2df..edfc0e1
 [06/11/2020]: https://github.com/Gbillington1/Events-API/compare/277c5bf..76c0318
 [06/10/2020]: https://github.com/Gbillington1/Events-API/compare/d3b101d..c0e50d9
