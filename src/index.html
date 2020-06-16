@@ -5,7 +5,10 @@
     <title>Events API Test</title>
     <meta charset="utf-8">
 
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery Validator-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 
     <style>
         html,
@@ -24,14 +27,14 @@
             width: 350px;
         }
 
-        #addUser {
+        #postUser {
             display: grid;
             grid-template-columns: 100px 250px;
-            grid-template-rows: 25px 25px 25px 25px 25px 25px;
+            grid-template-rows: 25px 25px 25px 25px 25px 25px 25px;
             grid-row-gap: 5px;
         }
 
-        #addEvent {
+        #postEvent {
             display: grid;
             grid-template-columns: 100px 250px;
             grid-template-rows: 25px 75px 25px 25px 25px;
@@ -52,34 +55,50 @@
             align-self: center;
         }
 
-        #label1,
+        .label1,
         #firstName {
             grid-row-start: 1;
             grid-row-end: 2;
         }
 
-        #label2,
+        .label2,
         #lastName {
             grid-row-start: 2;
             grid-row-end: 3;
         }
 
-        #label3,
+        .label3,
         #username {
             grid-row-start: 3;
             grid-row-end: 4;
         }
 
-        #label4,
+        .label4,
         #email {
             grid-row-start: 4;
             grid-row-end: 5;
         }
 
-        #label5,
+        .label5,
         #password {
             grid-row-start: 5;
             grid-row-end: 6;
+        }
+
+        #userErrorMsg {
+            grid-row-start: 7;
+            grid-row-end: 8;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            justify-self: center;
+        }
+
+        #eventErrorMsg {
+            grid-row-start: 6;
+            grid-row-end: 7;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            justify-self: center;
         }
 
         #createUser {
@@ -105,6 +124,10 @@
         #description {
             height: 80%;
         }
+
+        form .error {
+            color: #ff0000;
+        }
     </style>
 
 </head>
@@ -116,25 +139,27 @@
             Create User
         </h1>
 
-        <form id='addUser'>
-            <label id='label1' class='col1' for='firstName'>First Name:</label>
+        <form id='postUser'>
+            <label class='label1' class='col1' for='firstName'>First Name:</label>
             <input type='text' class='col2' id='firstName' name='firstName' placeholder="First name here.">
 
-            <label id='label2' class='col1' for='lastName'>Last Name:</label>
+            <label class='label2' class='col1' for='lastName'>Last Name:</label>
             <input type='text' class='col2' id='lastName' name='lastName' placeholder="Last name here.">
 
-            <label id='label3' class='col1' for='username'>Userame:</label>
+            <label class='label3' class='col1' for='username'>Userame:</label>
             <input type='text' class='col2' id='username' name='username' placeholder="Username here.">
 
-            <label id='label4' class='col1' for='email'>Email:</label>
+            <label class='label4' class='col1' for='email'>Email:</label>
             <input type='email' class='col2' id='email' name='email' placeholder="Email here.">
 
-            <label id='label5' class='col1' for='password'>Password:</label>
+            <label class='label5' class='col1' for='password'>Password:</label>
             <input type='password' class='col2' id='password' name='password' placeholder="Password here.">
 
             <div id='createUser'>
                 <button type='submit' id='submit'>Create User</button>
             </div>
+
+            <div id='userErrorMsg'></div>
 
         </form>
 
@@ -142,57 +167,118 @@
             Create Event
         </h1>
 
-        <form id='addEvent'>
-            <label id='label1' class='col1' for='name'>Event Name:</label>
+        <form id='postEvent'>
+            <label class='label1' class='col1' for='name'>Event Name:</label>
             <input type='text' class='col2' id='name' name='name' placeholder="Event name here.">
 
-            <label id='label2' class='col1' for='description'>Event Description:</label>
+            <label class='label2' class='col1' for='description'>Event Description:</label>
             <textarea class='col2' id='description' name='description' placeholder="Event description here."></textarea>
 
-            <label id='label3' class='col1' for='date'>Event Date:</label>
+            <label class='label3' class='col1' for='date'>Event Date:</label>
             <input type='date' class='col2' id='date' name='date'>
 
-            <label id='label4' class='col1' for='time'>Event Time:</label>
+            <label class='label4' class='col1' for='time'>Event Time:</label>
             <input type='time' class='col2' id='time' name='time'>
 
             <div id='createEvent'>
                 <button type='submit' id='submit'>Create Event</button>
             </div>
 
+            <div id="eventErrorMsg"></div>
+
         </form>
     </div>
 
     <script>
-        // add user form
-        $('#addUser').submit(function (e) {
-            e.preventDefault();
 
-            // there must be some way to hide the password in the network tab
-            $.post('/postUser', {
-                firstName: $('#firstName').val(),
-                lastName: $('#lastName').val(),
-                username: $('#username').val(),
-                email: $('#email').val(),
-                password: $('#password').val()
-            }, function (data, status) {
-                
-                console.log(data)
-            })
-        })
+        // Wait for the DOM to be ready
+        $(function () {
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("#postUser").validate({
+                // Specify validation rules
+                rules: {
+                    firstName: "required",
+                    lastName: "required",
+                    username: 'required',
+                    email: {
+                        required: true,
+                        // Specify that email should be validated
+                        // by the built-in "email" rule
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 50
+                    }
+                },
+                // Specify validation error messages
+                messages: {
+                    firstName: "Please enter your first name",
+                    lastName: "Please enter your last name",
+                    username: "Please enter your username",
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password should be between 6 and 50 characters"
+                    },
+                    email: "Please enter a valid email address"
+                },
+                errorElement: 'div',
+                errorLabelContainer: '#userErrorMsg',
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function (form, e) {
+                    e.preventDefault();
 
-        // add event form
-        $('#addEvent').submit(function (e) {
-            e.preventDefault();
+                    // there must be some way to hide the password in the network tab
+                    $.post('/postUser', {
+                        firstName: $('#firstName').val(),
+                        lastName: $('#lastName').val(),
+                        username: $('#username').val(),
+                        email: $('#email').val(),
+                        password: $('#password').val()
+                    }, function (data, status) {
 
-            $.post('/postEvent', {
-                name: $('#name').val(),
-                description: $('#description').val(),
-                date: $('#date').val(),
-                time: $('#time').val()
-            }, function (data, status) {
-                console.log(data)
-            })
-        })
+                        console.log(data)
+                    })
+                }
+            });
+
+
+            $("#postEvent").validate({
+                // Specify validation rules
+                rules: {
+                    name: "required",
+                    description: "required",
+                    date: 'required',
+                    time: 'required',
+                },
+                // Specify validation error messages
+                messages: {
+                    name: "Please enter the event name",
+                    description: "Please describe your event",
+                    date: "Please enter an event date",
+                    time: "Please enter an event time"
+                },
+                errorElement: 'div',
+                errorLabelContainer: '#eventErrorMsg',
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function (form, e) {
+                    e.preventDefault();
+
+                    $.post('/postEvent', {
+                        name: $('#name').val(),
+                        description: $('#description').val(),
+                        date: $('#date').val(),
+                        time: $('#time').val()
+                    }, function (data, status) {
+                        console.log(data)
+                    })
+                }
+            });
+        });
 
     </script>
 

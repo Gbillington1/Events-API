@@ -1,6 +1,11 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/15/2020]
+### Added 
+ - frontend validation 
+ - error handling 
+
 ## [06/14/2020]
 ### Added 
  - basic data validation
