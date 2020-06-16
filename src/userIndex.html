@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User</title>
+    <meta charset="utf-8">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1 id='welcome'>Welcome</h1>
+    <script>
+        function getCookie(key) {
+            const regexp = new RegExp(`.*${key}=([^;]*)`);
+            const result = regexp.exec(document.cookie);
+            if (result) {
+                return result[1];
+            }
+        }
+        var id = getCookie('userID');
+        console.log(id)
+        $(function () {
+
+            $.get('/getUser', {
+                userId: id
+            }, function (data, status) {
+                $('#welcome').html('Welcome ' + data[0].first_name);
+            })
+        })
+    </script>
+</body>
+
+</html>

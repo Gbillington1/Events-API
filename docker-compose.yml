@@ -16,7 +16,7 @@ services:
   postgres:
     build: ./dev-services/postgres
     ports:
-      - 5431:5431
+      - 5432:5432
     restart: always
     volumes:
     - ./dev-services/postgres/data/pgdata:/var/lib/postgresql/data

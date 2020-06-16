@@ -4,7 +4,9 @@ All commits are documented in this file.
 ## [06/15/2020]
 ### Added 
  - frontend validation 
- - error handling 
+ - error handling for backend validation
+ - cookie for userID 
+ - redirect to page that gets user data (with userID cookie)
 
 ## [06/14/2020]
 ### Added 

@@ -39,7 +39,7 @@ client
     .then(() => console.log('connected'))
     .catch(err => console.error('error', err.stack));
 
-//serve html page
+//serve html homepage
 app.get('/', function (req, res) {
     fs.readFile("./index.html", function (err, data) {
         if (err) {
@@ -54,6 +54,36 @@ app.get('/', function (req, res) {
     });
 });
 
+
+app.get('/user', function (req, res) {
+    fs.readFile('./userIndex.html', function (err, data) {
+        if (err) {
+            res.writeHead(404);
+            res.write("Not found");
+            res.end();
+        } else {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(data);
+            res.end();
+        }
+    })
+})
+
+app.get('/getUser', function(req, res) {
+    // req.params was empty, why does req.query work?
+    console.log(req.query.userId)
+    users.retrieve(client, req.query.userId).then(function (row, error) {
+        if (typeof error !== "undefined") {
+            res.send({ 'error': true });
+            
+            return;
+        }
+        
+        console.log(row);
+        res.send(row)
+    })
+})
+
 // receive post request to /postUser endpoint
 app.post('/postUser', function (req, res, next) {
     // validate data
@@ -66,16 +96,17 @@ app.post('/postUser', function (req, res, next) {
 
         // add userData to DB
         users.create(client, userData)
-
+        
         // tests function to check if addUser is working correctly
         // returns users table => sends it to frontend
         users.all(client).then(function (rows, error) {
             if (typeof error !== "undefined") {
                 res.send({ 'error': true });
-
+                
                 return;
             }
-
+            
+            res.cookie('userID', rows[rows.length - 1].userid);
             res.send(rows[rows.length - 1]);
         })
     }
