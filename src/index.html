@@ -213,11 +213,11 @@
                     e.preventDefault();
 
                     $.post('/postUser', {
-                        firstName: $('#firstName').val(),
-                        lastName: $('#lastName').val(),
-                        username: $('#username').val(),
-                        email: $('#email').val(),
-                        password: $('#password').val()
+                        firstName: $('#postFirstName').val(),
+                        lastName: $('#postLastName').val(),
+                        username: $('#postUsername').val(),
+                        email: $('#postEmail').val(),
+                        password: $('#postPassword').val()
                     }, function (data, status) {
                         window.location.href = '/user/' + data.username;
                     })
