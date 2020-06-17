@@ -5,12 +5,144 @@
     <title>User</title>
     <meta charset="utf-8">
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- jQuery Validator-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        #container {
+            margin: 0 auto;
+            width: 350px;
+        }
+
+        #postEvent {
+            display: grid;
+            grid-template-columns: 100px 250px;
+            grid-template-rows: 25px 75px 25px 25px 25px;
+            grid-row-gap: 5px;
+        }
+
+        .col1 {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            justify-self: left;
+            align-self: center;
+        }
+
+        .col2 {
+            grid-column-start: 2;
+            grid-column-end: 3;
+            justify-self: stretch;
+            align-self: center;
+        }
+
+        .label1,
+        #firstName {
+            grid-row-start: 1;
+            grid-row-end: 2;
+        }
+
+        .label2,
+        #lastName {
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+
+        .label3,
+        #username {
+            grid-row-start: 3;
+            grid-row-end: 4;
+        }
+
+        .label4,
+        #email {
+            grid-row-start: 4;
+            grid-row-end: 5;
+        }
+
+        .label5,
+        #password {
+            grid-row-start: 5;
+            grid-row-end: 6;
+        }
+
+        #userErrorMsg {
+            grid-row-start: 7;
+            grid-row-end: 8;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            justify-self: center;
+        }
+
+        #eventErrorMsg {
+            grid-row-start: 6;
+            grid-row-end: 7;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            justify-self: center;
+        }
+
+        #createEvent {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 5;
+            grid-row-end: 6;
+            justify-self: center;
+            align-self: center;
+
+        }
+
+        #description {
+            height: 80%;
+        }
+
+        form .error {
+            color: #ff0000;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 id='welcome'></h1>
+    
+    <div id='container'>
+        <h1 class='header' id='welcome'></h1>
+        <h1 class='header'>
+            Create Event
+        </h1>
+
+        <form id='postEvent'>
+            <label class='label1' class='col1' for='name'>Event Name:</label>
+            <input type='text' class='col2' id='name' name='name' placeholder="Event name here.">
+
+            <label class='label2' class='col1' for='description'>Event Description:</label>
+            <textarea class='col2' id='description' name='description' placeholder="Event description here."></textarea>
+
+            <label class='label3' class='col1' for='date'>Event Date:</label>
+            <input type='date' class='col2' id='date' name='date'>
+
+            <label class='label4' class='col1' for='time'>Event Time:</label>
+            <input type='time' class='col2' id='time' name='time'>
+
+            <div id='createEvent'>
+                <button type='submit' id='submit'>Create Event</button>
+            </div>
+
+            <div id="eventErrorMsg"></div>
+
+        </form>
+    </div>
 
     <script>
         function getCookie(key) {
@@ -29,10 +161,39 @@
                 userId: id,
                 userbname: username
             }, function (data, status) {
-                $('#welcome').html('Welcome ' + data.firstName);
+                $('#welcome').html('Welcome, ' + data.firstName + ' ' + data.lastName);
                 console.log(data)
             })
         })
+
+        $("#postEvent").validate({
+            rules: {
+                name: "required",
+                description: "required",
+                date: 'required',
+                time: 'required',
+            },
+            messages: {
+                name: "Please enter the event name",
+                description: "Please describe your event",
+                date: "Please enter an event date",
+                time: "Please enter an event time"
+            },
+            errorElement: 'div',
+            errorLabelContainer: '#eventErrorMsg',
+            submitHandler: function (form, e) {
+                e.preventDefault();
+
+                $.post('/postEvent', {
+                    name: $('#name').val(),
+                    description: $('#description').val(),
+                    date: $('#date').val(),
+                    time: $('#time').val()
+                }, function (data, status) {
+                    console.log(data)
+                })
+            }
+        });
     </script>
 </body>
 

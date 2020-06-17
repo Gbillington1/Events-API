@@ -5,6 +5,10 @@ All commits are documented in this file.
 ### Added
  - function in users model that creates a data object for frontend
  - personalize endpoints for redirect after sign up
+ - sign in form 
+
+### Changed 
+ - moved events form to user page
 
 ## [06/15/2020]
 ### Added 

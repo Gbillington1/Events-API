@@ -34,10 +34,10 @@
             grid-row-gap: 5px;
         }
 
-        #postEvent {
+        #getUser {
             display: grid;
             grid-template-columns: 100px 250px;
-            grid-template-rows: 25px 75px 25px 25px 25px;
+            grid-template-rows: 25px 25px 25px;
             grid-row-gap: 5px;
         }
 
@@ -56,31 +56,33 @@
         }
 
         .label1,
-        #firstName {
+        #postFirstName,
+        #getUsername {
             grid-row-start: 1;
             grid-row-end: 2;
         }
 
         .label2,
-        #lastName {
+        #postLastName,
+        #getPassword {
             grid-row-start: 2;
             grid-row-end: 3;
         }
 
         .label3,
-        #username {
+        #postUsername {
             grid-row-start: 3;
             grid-row-end: 4;
         }
 
         .label4,
-        #email {
+        #postEmail {
             grid-row-start: 4;
             grid-row-end: 5;
         }
 
         .label5,
-        #password {
+        #postPassword {
             grid-row-start: 5;
             grid-row-end: 6;
         }
@@ -93,36 +95,22 @@
             justify-self: center;
         }
 
-        #eventErrorMsg {
-            grid-row-start: 6;
-            grid-row-end: 7;
-            grid-column-start: 1;
-            grid-column-end: 3;
-            justify-self: center;
-        }
-
-        #createUser {
+        #createUserBtn {
             grid-column-start: 1;
             grid-column-end: 3;
             grid-row-start: 6;
             grid-row-end: 7;
             justify-self: center;
             align-self: center;
-
         }
 
-        #createEvent {
+        #signInBtn {
             grid-column-start: 1;
             grid-column-end: 3;
-            grid-row-start: 5;
-            grid-row-end: 6;
+            grid-row-start: 3;
+            grid-row-end: 4;
             justify-self: center;
             align-self: center;
-
-        }
-
-        #description {
-            height: 80%;
         }
 
         form .error {
@@ -135,76 +123,72 @@
 <body>
     <div id="container">
 
-        <h1 class='header'>
-            Create User
-        </h1>
+        <div id='createUser'>
+            <h1 class='header'>
+                Create an account
+            </h1>
+    
+            <form id='postUser'>
+                <label class='label1' class='col1' for='firstName'>First Name:</label>
+                <input type='text' class='col2' id='postFirstName' name='firstName' placeholder="First name here.">
+    
+                <label class='label2' class='col1' for='lastName'>Last Name:</label>
+                <input type='text' class='col2' id='postLastName' name='lastName' placeholder="Last name here.">
+    
+                <label class='label3' class='col1' for='username'>Userame:</label>
+                <input type='text' class='col2' id='postUsername' name='username' placeholder="Username here.">
+    
+                <label class='label4' class='col1' for='email'>Email:</label>
+                <input type='email' class='col2' id='postEmail' name='email' placeholder="Email here.">
+    
+                <label class='label5' class='col1' for='password'>Password:</label>
+                <input type='password' class='col2' id='postPassword' name='password' placeholder="Password here.">
+    
+                <div id='createUserBtn'>
+                    <button type='submit' id='submit'>Create User</button>
+                </div>
+    
+                <div id='userErrorMsg'></div>
+    
+            </form>
+        </div>
 
-        <form id='postUser'>
-            <label class='label1' class='col1' for='firstName'>First Name:</label>
-            <input type='text' class='col2' id='firstName' name='firstName' placeholder="First name here.">
-
-            <label class='label2' class='col1' for='lastName'>Last Name:</label>
-            <input type='text' class='col2' id='lastName' name='lastName' placeholder="Last name here.">
-
-            <label class='label3' class='col1' for='username'>Userame:</label>
-            <input type='text' class='col2' id='username' name='username' placeholder="Username here.">
-
-            <label class='label4' class='col1' for='email'>Email:</label>
-            <input type='email' class='col2' id='email' name='email' placeholder="Email here.">
-
-            <label class='label5' class='col1' for='password'>Password:</label>
-            <input type='password' class='col2' id='password' name='password' placeholder="Password here.">
-
-            <div id='createUser'>
-                <button type='submit' id='submit'>Create User</button>
-            </div>
-
-            <div id='userErrorMsg'></div>
-
-        </form>
-
-        <h1 class='header'>
-            Create Event
-        </h1>
-
-        <form id='postEvent'>
-            <label class='label1' class='col1' for='name'>Event Name:</label>
-            <input type='text' class='col2' id='name' name='name' placeholder="Event name here.">
-
-            <label class='label2' class='col1' for='description'>Event Description:</label>
-            <textarea class='col2' id='description' name='description' placeholder="Event description here."></textarea>
-
-            <label class='label3' class='col1' for='date'>Event Date:</label>
-            <input type='date' class='col2' id='date' name='date'>
-
-            <label class='label4' class='col1' for='time'>Event Time:</label>
-            <input type='time' class='col2' id='time' name='time'>
-
-            <div id='createEvent'>
-                <button type='submit' id='submit'>Create Event</button>
-            </div>
-
-            <div id="eventErrorMsg"></div>
-
-        </form>
+        <div id='signIn'>
+            <h1 class='header'>
+                Sign into your account
+            </h1>
+    
+            <form id='getUser'>
+                <label class='label1' class='col1' for='username'>Username:</label>
+                <input type='text' class='col2' id='getUsername' name='username' placeholder="Username here.">
+    
+                <label class='label2' class='col1' for='password'>Last Name:</label>
+                <input type='text' class='col2' id='getPassword' name='password' placeholder="password here.">
+    
+                <div id='signInBtn'>
+                    <button type='submit' id='submit'>Sign in</button>
+                </div>
+    
+                <div id='signInErrorMsg'></div>
+    
+            </form>
+        </div>
     </div>
 
     <script>
 
         // Wait for the DOM to be ready
         $(function () {
-            // Initialize form validation on the registration form.
-            // It has the name attribute "registration"
+
+            console.log(document.cookie)
+
             $("#postUser").validate({
-                // Specify validation rules
                 rules: {
                     firstName: "required",
                     lastName: "required",
                     username: 'required',
                     email: {
                         required: true,
-                        // Specify that email should be validated
-                        // by the built-in "email" rule
                         email: true
                     },
                     password: {
@@ -213,7 +197,6 @@
                         maxlength: 50
                     }
                 },
-                // Specify validation error messages
                 messages: {
                     firstName: "Please enter your first name",
                     lastName: "Please enter your last name",
@@ -226,12 +209,9 @@
                 },
                 errorElement: 'div',
                 errorLabelContainer: '#userErrorMsg',
-                // Make sure the form is submitted to the destination defined
-                // in the "action" attribute of the form when valid
                 submitHandler: function (form, e) {
                     e.preventDefault();
 
-                    // there must be some way to hide the password in the network tab
                     $.post('/postUser', {
                         firstName: $('#firstName').val(),
                         lastName: $('#lastName').val(),
@@ -240,40 +220,6 @@
                         password: $('#password').val()
                     }, function (data, status) {
                         window.location.href = '/user/' + data.username;
-                    })
-                }
-            });
-
-
-            $("#postEvent").validate({
-                // Specify validation rules
-                rules: {
-                    name: "required",
-                    description: "required",
-                    date: 'required',
-                    time: 'required',
-                },
-                // Specify validation error messages
-                messages: {
-                    name: "Please enter the event name",
-                    description: "Please describe your event",
-                    date: "Please enter an event date",
-                    time: "Please enter an event time"
-                },
-                errorElement: 'div',
-                errorLabelContainer: '#eventErrorMsg',
-                // Make sure the form is submitted to the destination defined
-                // in the "action" attribute of the form when valid
-                submitHandler: function (form, e) {
-                    e.preventDefault();
-
-                    $.post('/postEvent', {
-                        name: $('#name').val(),
-                        description: $('#description').val(),
-                        date: $('#date').val(),
-                        time: $('#time').val()
-                    }, function (data, status) {
-                        console.log(data)
                     })
                 }
             });

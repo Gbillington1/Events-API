@@ -48,7 +48,6 @@ function format(data) {
     frontendData.lastName = data.last_name;
     frontendData.username = data.username;
     frontendData.email = data.email;
-    frontendData.password = data.user_password;
 
     return frontendData;
 }
