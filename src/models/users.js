@@ -7,14 +7,10 @@ function create(client, data) {
 function retrieve(client, id) {
     return new Promise(function (resolve, reject) {
         client.query('SELECT * FROM users WHERE userid = $1', [id], function (err, response) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(response.rows)
-            }
+            resolve(response.rows)
         })
     })
-} 
+}
 
 // update user with specific id
 function update(client, data) {
@@ -25,11 +21,7 @@ function update(client, data) {
 function all(client) {
     return new Promise(function (resolve, reject) {
         client.query('SELECT * FROM users', function (err, response) {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(response.rows)
-            }
+            resolve(response.rows)
         })
     })
 }

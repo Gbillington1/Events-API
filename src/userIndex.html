@@ -159,9 +159,13 @@
 
             $.get('/getUser', {
                 userId: id,
-                userbname: username
+                username: username
             }, function (data, status) {
                 $('#welcome').html('Welcome, ' + data.firstName + ' ' + data.lastName);
+                console.log(data)
+            })
+
+            $.get('/getEvents', function (data, status) {
                 console.log(data)
             })
         })
@@ -184,11 +188,23 @@
             submitHandler: function (form, e) {
                 e.preventDefault();
 
+                // format timestamp for DB
+                var date = $('#date').val();
+                var time =  $('#time').val() + ':00';
+                console.log(new Date())
+                var UTCoffset = (new Date().getTimezoneOffset()) / 60;
+                if (UTCoffset > 0) {
+                    UTCoffset = '-' + UTCoffset;
+                } else {
+                    UTCoffset = '+' + UTCoffset;
+                }
+                console.log(UTCoffset)
+                var timestamp = date + ' ' + time + ' ' + UTCoffset + ":00";
+
                 $.post('/postEvent', {
                     name: $('#name').val(),
                     description: $('#description').val(),
-                    date: $('#date').val(),
-                    time: $('#time').val()
+                    timestamp: timestamp,
                 }, function (data, status) {
                     console.log(data)
                 })

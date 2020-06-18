@@ -11,8 +11,7 @@ CREATE TABLE events (
 	event_id serial PRIMARY KEY,
 	event_name VARCHAR(255) NOT NULL,
 	event_description VARCHAR(2000) NOT NULL,
-	event_date DATE NOT NULL,
-	event_time TIME NOT NULL
+	event_timestamp TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
 CREATE TABLE rsvps (

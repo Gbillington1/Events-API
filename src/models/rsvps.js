@@ -9,14 +9,10 @@ function create(client, data) {
 function retrieve(client, eventID, userID) {
     return new Promise(function (resolve, reject) {
         client.query('SELECT * FROM rsvps WHERE linked_event_id = $1 AND linked_user_id = $2', [eventID, userID], function (err, response) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(response.rows)
-            }
+            resolve(response.rows)
         })
     })
-} 
+}
 
 // update rsvp status with specific event and user id
 function update(client, data) {
@@ -27,11 +23,7 @@ function update(client, data) {
 function all(client) {
     return new Promise(function (resolve, reject) {
         client.query('SELECT * FROM rsvps', function (err, response) {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(response.rows)
-            }
+            resolve(response.rows)
         })
     })
 }

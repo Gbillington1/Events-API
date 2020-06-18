@@ -1,6 +1,18 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/17/2020]
+### Added
+ - upcoming function to events model to return upcoming events
+ - timestamp column
+ - frontend code to create timestamp (with timezone) from input data (events form)
+
+### Changed
+ - Error handling in model functions to promises (.catch())
+
+### Removed
+ - date and time columns
+
 ## [06/16/2020]
 ### Added
  - function in users model that creates a data object for frontend
