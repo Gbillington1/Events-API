@@ -104,3 +104,4 @@ Code | Message | HTTP code | Description | Reference
 312 | The provided access token or refresh token does not match the given bearer token. | 401 | Mismatched API Key provided when refreshing token. | [User Authentication](Authentication/OAuthAuthentication.md)
 320 | The provided refresh token cannot be used to renew an access token. Client login should be attempted. | 403 | | [User Authentication](Authentication/OAuthAuthentication.md)
 700 | The requested operation is not permitted on this resource. | 412 | A precondition was not met for this request. | 
+701 | Invalid request params | 412 | | 
