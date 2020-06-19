@@ -189,17 +189,17 @@
                 e.preventDefault();
 
                 // format timestamp for DB
-                var date = $('#date').val();
-                var time =  $('#time').val() + ':00';
-                console.log(new Date())
-                var UTCoffset = (new Date().getTimezoneOffset()) / 60;
-                if (UTCoffset > 0) {
-                    UTCoffset = '-' + UTCoffset;
-                } else {
-                    UTCoffset = '+' + UTCoffset;
-                }
-                console.log(UTCoffset)
-                var timestamp = date + ' ' + time + ' ' + UTCoffset + ":00";
+                // var date = $('#date').val();
+                // var time =  $('#time').val() + ':00';
+                // console.log();
+                // var UTCoffset = (new Date().getTimezoneOffset()) / 60;
+                // if (UTCoffset > 0) {
+                //     UTCoffset = '-' + UTCoffset;
+                // } else {
+                //     UTCoffset = '+' + UTCoffset;
+                // }
+                // console.log(UTCoffset)
+                var timestamp = new Date().toISOString();
 
                 $.post('/postEvent', {
                     name: $('#name').val(),
