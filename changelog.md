@@ -1,6 +1,11 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/19/2020]
+### Added
+ - apiError class 
+ - better error handling
+
 ## [06/17/2020]
 ### Added
  - upcoming function to events model to return upcoming events
