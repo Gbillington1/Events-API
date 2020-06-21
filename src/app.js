@@ -13,10 +13,9 @@ let isDbUp = false;
 // use cookie-parsing middleware
 app.use(cookieParser());
 
-// is this middleware?
 app.use(express.urlencoded({ extended: true }));
 
-// validate data
+// basic validation
 app.use(function (req, res, next) {
     var data;
     switch (req.method) {
@@ -88,7 +87,7 @@ app.get('/user/:username', function (req, res) {
 })
 
 app.get('/user', function (req, res) {
-    // req.params was empty, why does req.query work?
+
     users.retrieve(checkDb(), req.query.userId).then(function (rows) {
 
         var data = users.format(rows[0]);
@@ -98,16 +97,18 @@ app.get('/user', function (req, res) {
     }).catch(err => { console.error(err) })
 })
 
-// receive post request to /postUser endpoint
-app.post('/user', function (req, res, next) {
+// receive post request to /user endpoint
+app.post('/user', function (req, res) {
 
+    console.log(req.body)
     // add data from form to userData obj
-    var userData = req.body;
+    var userData = users.validate(req.body);
+
+    console.log(userData)
 
     // add userData to DB
     users.create(checkDb(), userData)
 
-    // tests function to check if addUser is working correctly
     // returns users table => sends it to frontend
     users.all(checkDb()).then(function (rows) {
 
@@ -133,7 +134,7 @@ app.get('/event', function (req, res) {
 })
 
 // reveive post request to /addEvent endpoint
-app.post('/event', function (req, res, next) {
+app.post('/event', function (req, res) {
     // form eventData with data form frontend
     var eventData = req.body;
     // add event to DB

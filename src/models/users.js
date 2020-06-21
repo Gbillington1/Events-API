@@ -1,3 +1,5 @@
+const utf8 = require('utf8');
+
 // create a user
 function create(client, data) {
     client.query('INSERT INTO users (first_name, last_name, username, email, user_password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.username, data.email, data.password]);
@@ -46,13 +48,21 @@ function format(data) {
 
 // needs to:
 // convert HTML entities into characters
-// trim data, removing extraneous chars from left and right
+// trim data, removing extraneous chars from left and right (spaces, tab spaces, new lines, carriage returns, )
 // convert remaining string to UTF8 encoding
 
-// function validate(data) {
-//     var cleanInputs = new Array(); 
-    
-// }
+function validate(data) {
+    var cleanInputs = {}; 
+    // trim whitespace out of data
+    var keys = Object.keys(data);
+    var values = Object.values(data);
+    for (var i = 0; i < keys.length; i++) {
+        console.log(values[i].trim())
+        console.log(utf8.encode(values[i].trim()))
+        cleanInputs[keys[i]] = utf8.encode(values[i].trim());
+    }
+    return cleanInputs;
+}
 
 module.exports = {
     'create': create,
@@ -60,5 +70,6 @@ module.exports = {
     'update': update,
     'all': all,
     'remove': remove,
-    'format': format
+    'format': format,
+    'validate': validate
 }
