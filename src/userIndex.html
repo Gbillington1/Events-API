@@ -157,7 +157,7 @@
 
         $(function () {
 
-            $.get('/getUser', {
+            $.get('/user', {
                 userId: id,
                 username: username
             }, function (data, status) {
@@ -165,7 +165,7 @@
                 console.log(data)
             })
 
-            $.get('/getEvents', function (data, status) {
+            $.get('/events', function (data, status) {
                 console.log(data)
             })
         })
@@ -187,21 +187,10 @@
             errorLabelContainer: '#eventErrorMsg',
             submitHandler: function (form, e) {
                 e.preventDefault();
-
-                // format timestamp for DB
-                // var date = $('#date').val();
-                // var time =  $('#time').val() + ':00';
-                // console.log();
-                // var UTCoffset = (new Date().getTimezoneOffset()) / 60;
-                // if (UTCoffset > 0) {
-                //     UTCoffset = '-' + UTCoffset;
-                // } else {
-                //     UTCoffset = '+' + UTCoffset;
-                // }
-                // console.log(UTCoffset)
+                
                 var timestamp = new Date().toISOString();
 
-                $.post('/postEvent', {
+                $.post('/event', {
                     name: $('#name').val(),
                     description: $('#description').val(),
                     timestamp: timestamp,

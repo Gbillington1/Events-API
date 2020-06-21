@@ -10,7 +10,6 @@ const rsvps = require('./models/rsvps');
 const apiError = require("./errors/apiError");
 let isDbUp = false;
 
-
 // use cookie-parsing middleware
 app.use(cookieParser());
 
@@ -19,7 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // validate data
 app.use(function (req, res, next) {
-    console.log('here')
     var data;
     switch (req.method) {
         case "GET":
@@ -54,6 +52,12 @@ client
     })
     .catch(err => console.error('error', err.stack));
 
+function checkDb() {
+    if (isDbUp) {
+        return client;
+    }
+}
+
 //serve html homepage
 app.get('/', function (req, res) {
     fs.readFile("./index.html", function (err, data) {
@@ -85,7 +89,7 @@ app.get('/user/:username', function (req, res) {
 
 app.get('/getUser', function (req, res) {
     // req.params was empty, why does req.query work?
-    users.retrieve(client, req.query.userId).then(function (rows) {
+    users.retrieve(checkDb(), req.query.userId).then(function (rows) {
 
         var data = users.format(rows[0]);
 
@@ -101,11 +105,11 @@ app.post('/postUser', function (req, res, next) {
     var userData = req.body;
 
     // add userData to DB
-    users.create(client, userData)
+    users.create(checkDb(), userData)
 
     // tests function to check if addUser is working correctly
     // returns users table => sends it to frontend
-    users.all(client).then(function (rows) {
+    users.all(checkDb()).then(function (rows) {
 
         var data = users.format(rows[rows.length - 1]);
 
@@ -118,7 +122,7 @@ app.post('/postUser', function (req, res, next) {
 })
 
 app.get('/getEvents', function (req, res) {
-    events.upcoming(client).then(function (rows) {
+    events.upcoming(checkDb()).then(function (rows) {
         if (rows.length > 0) {
             res.send(rows)
         } else {
@@ -139,10 +143,10 @@ app.post('/postEvent', function (req, res, next) {
         // form eventData with data form frontend
         var eventData = req.body;
         // add event to DB
-        events.create(client, eventData);
+        events.create(checkDb(), eventData);
 
         // get event from DB and send it to frontend
-        events.all(client).then(function (rows, error) {
+        events.all(checkDb()).then(function (rows, error) {
             if (typeof error !== "undefined") {
                 res.send({ 'error': true });
 
