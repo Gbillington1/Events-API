@@ -127,29 +127,29 @@
             <h1 class='header'>
                 Create an account
             </h1>
-    
+
             <form id='postUser'>
                 <label class='label1' class='col1' for='firstName'>First Name:</label>
                 <input type='text' class='col2' id='postFirstName' name='firstName' placeholder="First name here.">
-    
+
                 <label class='label2' class='col1' for='lastName'>Last Name:</label>
                 <input type='text' class='col2' id='postLastName' name='lastName' placeholder="Last name here.">
-    
+
                 <label class='label3' class='col1' for='username'>Userame:</label>
                 <input type='text' class='col2' id='postUsername' name='username' placeholder="Username here.">
-    
+
                 <label class='label4' class='col1' for='email'>Email:</label>
                 <input type='email' class='col2' id='postEmail' name='email' placeholder="Email here.">
-    
+
                 <label class='label5' class='col1' for='password'>Password:</label>
                 <input type='password' class='col2' id='postPassword' name='password' placeholder="Password here.">
-    
+
                 <div id='createUserBtn'>
                     <button type='submit' id='submit'>Create User</button>
                 </div>
-    
+
                 <div id='userErrorMsg'></div>
-    
+
             </form>
         </div>
 
@@ -157,20 +157,20 @@
             <h1 class='header'>
                 Sign into your account
             </h1>
-    
+
             <form id='getUser'>
                 <label class='label1' class='col1' for='username'>Username:</label>
                 <input type='text' class='col2' id='getUsername' name='username' placeholder="Username here.">
-    
+
                 <label class='label2' class='col1' for='password'>Last Name:</label>
                 <input type='text' class='col2' id='getPassword' name='password' placeholder="password here.">
-    
+
                 <div id='signInBtn'>
                     <button type='submit' id='submit'>Sign in</button>
                 </div>
-    
+
                 <div id='signInErrorMsg'></div>
-    
+
             </form>
         </div>
     </div>
@@ -210,7 +210,6 @@
                 errorElement: 'div',
                 errorLabelContainer: '#userErrorMsg',
                 submitHandler: function (form, e) {
-                $('#postUser').submit(function(e) {
                     e.preventDefault();
 
                     $.post('/user', {
@@ -220,9 +219,8 @@
                         email: $('#postEmail').val(),
                         password: $('#postPassword').val()
                     }, function (data, status) {
-                        // window.location.href = '/user/' + data.username;
+                        window.location.href = '/user/' + data.username;
                     })
-                })
                 }
             });
         });

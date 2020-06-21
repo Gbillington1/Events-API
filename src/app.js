@@ -134,28 +134,21 @@ app.get('/event', function (req, res) {
 
 // reveive post request to /addEvent endpoint
 app.post('/event', function (req, res, next) {
-    // data is invalid
-    if (validate(req.body)) {
-        var err = new Error('Invalid input from /event')
-        next(err);
-        // data is validated
-    } else {
-        // form eventData with data form frontend
-        var eventData = req.body;
-        // add event to DB
-        events.create(checkDb(), eventData);
+    // form eventData with data form frontend
+    var eventData = req.body;
+    // add event to DB
+    events.create(checkDb(), eventData);
 
-        // get event from DB and send it to frontend
-        events.all(checkDb()).then(function (rows, error) {
-            if (typeof error !== "undefined") {
-                res.send({ 'error': true });
+    // get event from DB and send it to frontend
+    events.all(checkDb()).then(function (rows, error) {
+        if (typeof error !== "undefined") {
+            res.send({ 'error': true });
 
-                return;
-            }
+            return;
+        }
 
-            res.send(rows[rows.length - 1]);
-        }).catch(err => { console.error(err) })
-    }
+        res.send(rows[rows.length - 1]);
+    }).catch(err => { console.error(err) })
 });
 
 // error handling
