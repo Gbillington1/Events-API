@@ -8,6 +8,9 @@ All commits are documented in this file.
 ### Changed 
  - endpoints to just `user` and `event`
 
+### Removed
+ - old error handling for `event` endpoint 
+
 ## [06/19/2020]
 ### Added
  - apiError class 
@@ -78,8 +81,10 @@ All commits are documented in this file.
  - basic tables for api
  - changelog
 
-[06/15/2020]: https://github.com/Gbillington1/Events-API/compare/3087dde..HEAD
-[06/15/2020]: https://github.com/Gbillington1/Events-API/compare/c0d2478..749cb2c
+[06/20/2020]: https://github.com/Gbillington1/Events-API/compare/97a7068..HEAD
+[06/19/2020]: https://github.com/Gbillington1/Events-API/compare/157fe63..c19ad2c
+[06/17/2020]: https://github.com/Gbillington1/Events-API/compare/3087dde..53d97b7
+[06/16/2020]: https://github.com/Gbillington1/Events-API/compare/c0d2478..749cb2c
 [06/15/2020]: https://github.com/Gbillington1/Events-API/compare/68239d0..bb085bb
 [06/14/2020]: https://github.com/Gbillington1/Events-API/compare/34e1f87..34e1f87
 [06/12/2020]: https://github.com/Gbillington1/Events-API/compare/0c7c2df..edfc0e1
