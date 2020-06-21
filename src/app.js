@@ -87,7 +87,7 @@ app.get('/user/:username', function (req, res) {
     })
 })
 
-app.get('/getUser', function (req, res) {
+app.get('/user', function (req, res) {
     // req.params was empty, why does req.query work?
     users.retrieve(checkDb(), req.query.userId).then(function (rows) {
 
@@ -99,7 +99,7 @@ app.get('/getUser', function (req, res) {
 })
 
 // receive post request to /postUser endpoint
-app.post('/postUser', function (req, res, next) {
+app.post('/user', function (req, res, next) {
 
     // add data from form to userData obj
     var userData = req.body;
@@ -121,7 +121,7 @@ app.post('/postUser', function (req, res, next) {
 
 })
 
-app.get('/getEvents', function (req, res) {
+app.get('/event', function (req, res) {
     events.upcoming(checkDb()).then(function (rows) {
         if (rows.length > 0) {
             res.send(rows)
@@ -133,10 +133,10 @@ app.get('/getEvents', function (req, res) {
 })
 
 // reveive post request to /addEvent endpoint
-app.post('/postEvent', function (req, res, next) {
+app.post('/event', function (req, res, next) {
     // data is invalid
     if (validate(req.body)) {
-        var err = new Error('Invalid input from /postEvent')
+        var err = new Error('Invalid input from /event')
         next(err);
         // data is validated
     } else {

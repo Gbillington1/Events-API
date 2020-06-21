@@ -1,6 +1,13 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/20/2020]
+### Added
+ - function to check if db is up 
+
+### Changed 
+ - endpoints to just `user` and `event`
+
 ## [06/19/2020]
 ### Added
  - apiError class 
