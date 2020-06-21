@@ -44,6 +44,16 @@ function format(data) {
     return frontendData;
 }
 
+// needs to:
+// convert HTML entities into characters
+// trim data, removing extraneous chars from left and right
+// convert remaining string to UTF8 encoding
+
+// function validate(data) {
+//     var cleanInputs = new Array(); 
+    
+// }
+
 module.exports = {
     'create': create,
     'retrieve': retrieve,
