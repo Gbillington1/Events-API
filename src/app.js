@@ -161,32 +161,34 @@ app.post('/event', function (req, res) {
 
 // error handling
 app.use(function (err, req, res, next) {
-    var httpCode;
-    switch (err.code) {
-        case 300:
-        case 301:
-        case 302:
-        case 310:
-        case 312:
-            httpCode = 401;
-            break;
+    if (err instanceof apiError) {
+        var httpCode;
+        switch (err.code) {
+            case 300:
+            case 301:
+            case 302:
+            case 310:
+            case 312:
+                httpCode = 401;
+                break;
 
-        case 311:
-            httpCode = 400;
-            break;
+            case 311:
+                httpCode = 400;
+                break;
 
-        case 320:
-            httpCode = 403;
-            break;
+            case 320:
+                httpCode = 403;
+                break;
 
-        case 700:
-        case 701:
-            httpCode = 412;
-            break;
-    }
-    // bad request err
-    var output = {
-        error: err.output()
+            case 700:
+            case 701:
+                httpCode = 412;
+                break;
+        }
+        // bad request err
+        var output = {
+            error: err.output()
+        }
     }
     res.status(httpCode);
     console.error(err)
