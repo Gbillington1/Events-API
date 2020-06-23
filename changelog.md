@@ -1,6 +1,10 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/23/2020]
+### Added
+ - Unique constraint to username and email columns in DB
+
 ## [06/22/2020]
 ### Added
  - `validate()` and `format()` for `events` model
