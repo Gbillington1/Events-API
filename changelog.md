@@ -4,7 +4,7 @@ All commits are documented in this file.
 ## [06/22/2020]
 ### Added
  - regex replace to trim data instead of String.trim()
- - encoding trimmed data to UTF-8 before putting it in the DB
+ - UTF-8 encoding for trimmed data (before adding to DB)
  - decoding data in `users.format()` before sending it to frontend
 
 ## [06/20/2020]
@@ -87,7 +87,8 @@ All commits are documented in this file.
  - basic tables for api
  - changelog
 
-[06/20/2020]: https://github.com/Gbillington1/Events-API/compare/97a7068..HEAD
+[06/22/2020]: https://github.com/Gbillington1/Events-API/compare/f366b6c..HEAD
+[06/20/2020]: https://github.com/Gbillington1/Events-API/compare/97a7068..1d52998
 [06/19/2020]: https://github.com/Gbillington1/Events-API/compare/157fe63..c19ad2c
 [06/17/2020]: https://github.com/Gbillington1/Events-API/compare/3087dde..53d97b7
 [06/16/2020]: https://github.com/Gbillington1/Events-API/compare/c0d2478..749cb2c
