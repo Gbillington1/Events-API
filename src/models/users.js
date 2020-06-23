@@ -53,14 +53,30 @@ function format(data) {
 // convert remaining string to UTF8 encoding
 
 function validate(data) {
+
     var cleanInputs = {};
     var keys = Object.keys(data);
     var values = Object.values(data);
+    
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    // check email address
+    if (!re.test(data.email)) {
+        throw new Error('Invalid email address');
+    }
+
+    // check password
+    if (data.password.length < 6) {
+        throw new Error('Invalid password');
+    }
+
+    // trim extraneous chars and encode to UTF-8
     for (var i = 0; i < keys.length; i++) {
-        // trims extraneous chars and encodes to utf-8
         cleanInputs[keys[i]] = utf8.encode(values[i].replace(/(\s|\t|\n|\r|\x0B)/g, ""));
     }
+
     return cleanInputs;
+    
 }
 
 module.exports = {

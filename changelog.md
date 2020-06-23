@@ -6,6 +6,7 @@ All commits are documented in this file.
  - regex replace to trim data instead of String.trim()
  - UTF-8 encoding for trimmed data (before adding to DB)
  - decoding data in `users.format()` before sending it to frontend
+ - more specific data validation to password and email in `users` model
 
 ## [06/20/2020]
 ### Added
