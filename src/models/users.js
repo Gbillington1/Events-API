@@ -37,11 +37,12 @@ function remove(client, id) {
 function format(data) {
     var frontendData = {};
 
+    // decode data and form frontend data obj
     frontendData.userId = data.userid;
-    frontendData.firstName = data.first_name;
-    frontendData.lastName = data.last_name;
-    frontendData.username = data.username;
-    frontendData.email = data.email;
+    frontendData.firstName = utf8.decode(data.first_name);
+    frontendData.lastName = utf8.decode(data.last_name);
+    frontendData.username = utf8.decode(data.username);
+    frontendData.email = utf8.decode(data.email);
 
     return frontendData;
 }
@@ -52,14 +53,12 @@ function format(data) {
 // convert remaining string to UTF8 encoding
 
 function validate(data) {
-    var cleanInputs = {}; 
-    // trim whitespace out of data
+    var cleanInputs = {};
     var keys = Object.keys(data);
     var values = Object.values(data);
     for (var i = 0; i < keys.length; i++) {
-        console.log(values[i].trim())
-        console.log(utf8.encode(values[i].trim()))
-        cleanInputs[keys[i]] = utf8.encode(values[i].trim());
+        // trims extraneous chars and encodes to utf-8
+        cleanInputs[keys[i]] = utf8.encode(values[i].replace(/(\s|\t|\n|\r|\x0B)/g, ""));
     }
     return cleanInputs;
 }

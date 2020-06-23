@@ -8,6 +8,7 @@ const users = require('./models/users');
 const events = require('./models/events');
 const rsvps = require('./models/rsvps');
 const apiError = require("./errors/apiError");
+const utf8 = require("utf8");
 let isDbUp = false;
 
 // use cookie-parsing middleware
@@ -28,9 +29,10 @@ app.use(function (req, res, next) {
             break;
     }
     var values = Object.values(data);
+    var keys = Object.keys(data);
     for (var i = 0; i < values.length; i++) {
         if (typeof values[i] == typeof undefined || values[i] == "") {
-            var err = new apiError(701, "Invalid request params");
+            var err = new apiError(701, "Invalid request params at " + keys[i]);
             next(err);
             return;
         }
@@ -99,16 +101,11 @@ app.get('/user', function (req, res) {
 
 // receive post request to /user endpoint
 app.post('/user', function (req, res) {
-
-    console.log(req.body)
     // add data from form to userData obj
     var userData = users.validate(req.body);
 
-    console.log(userData)
-
     // add userData to DB
     users.create(checkDb(), userData)
-
     // returns users table => sends it to frontend
     users.all(checkDb()).then(function (rows) {
 

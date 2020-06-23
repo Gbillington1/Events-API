@@ -1,6 +1,12 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/22/2020]
+### Added
+ - regex replace to trim data instead of String.trim()
+ - encoding trimmed data to UTF-8 before putting it in the DB
+ - decoding data in `users.format()` before sending it to frontend
+
 ## [06/20/2020]
 ### Added
  - function to check if db is up 
