@@ -127,7 +127,6 @@ app.get('/event', function (req, res) {
             for (var i = 0; i < rows.length; i++) {
                 data[i] = events.format(rows[i])
             }
-            console.log(rows, data)
             res.send(data)
         } else {
             res.end();

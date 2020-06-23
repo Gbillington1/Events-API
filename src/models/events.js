@@ -48,6 +48,7 @@ function remove(client, id) {
     client.query('DELETE FROM events WHERE event_id = $1', [id]);
 }
 
+// format (and decode) data for the frontend
 function format(data) {
     var frontendData = {};
 
@@ -60,6 +61,7 @@ function format(data) {
     return frontendData;
 }
 
+// validate (trim and encode) data
 function validate(data) {
 
     var cleanInputs = {};
