@@ -7,6 +7,7 @@ All commits are documented in this file.
  - UTF-8 encoding for trimmed data (before adding to DB)
  - decoding data in `users.format()` before sending it to frontend
  - more specific data validation to password and email in `users` model
+ - checking if error is apiError before running through the error handler
 
 ### Changed
 - Changed frontend date JS to create the correct timestamp
