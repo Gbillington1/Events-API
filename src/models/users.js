@@ -72,7 +72,7 @@ function validate(data) {
 
     // trim extraneous chars and encode to UTF-8
     for (var i = 0; i < keys.length; i++) {
-        cleanInputs[keys[i]] = utf8.encode(values[i].replace(/(\s|\t|\n|\r|\x0B)/g, ""));
+        cleanInputs[keys[i]] = utf8.encode(values[i].trim());
     }
 
     return cleanInputs;

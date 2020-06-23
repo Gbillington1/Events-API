@@ -1,3 +1,12 @@
+const utf8 = require('utf8');
+
+// check if string is ISO-8601 format 
+function isIsoDate(str) {
+    if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
+    var d = new Date(str);
+    return d.toISOString() === str;
+}
+
 // create an event
 function create(client, data) {
     client.query('INSERT INTO events (event_name, event_description, event_timestamp) VALUES ($1, $2, $3)', [data.name, data.description, data.timestamp]);
@@ -39,11 +48,50 @@ function remove(client, id) {
     client.query('DELETE FROM events WHERE event_id = $1', [id]);
 }
 
+function format(data) {
+    var frontendData = {};
+
+    // decode data and form frontend data obj
+    frontendData.eventId = data.event_id;
+    frontendData.name = utf8.decode(data.event_name);
+    frontendData.description = utf8.decode(data.event_description);
+    frontendData.timestamp = data.event_timestamp;
+
+    return frontendData;
+}
+
+function validate(data) {
+
+    var cleanInputs = {};
+    var keys = Object.keys(data);
+    var values = Object.values(data);
+
+    // check timestamp
+    if (!isIsoDate(data.timestamp)) {
+        console.log('error')
+        throw new Error('Invalid date and/or time');
+    }
+    
+    // trim extraneous chars and encode to UTF-8
+    for (var i = 0; i < keys.length; i++) {
+        if (keys[i] != 'timestamp') {
+            cleanInputs[keys[i]] = utf8.encode(values[i].trim());
+        } else {
+            cleanInputs[keys[i]] = values[i].trim();
+        }
+    }
+
+    return cleanInputs;
+
+}
+
 module.exports = {
     'create': create,
     'retrieve': retrieve,
     'update': update,
     'all': all,
     'upcoming': upcoming,
-    'remove': remove
+    'remove': remove,
+    'format': format,
+    'validate': validate
 }

@@ -156,7 +156,7 @@
         var username = getCookie('username');
 
         $(function () {
-
+            
             $.get('/user', {
                 userId: id,
                 username: username
@@ -187,9 +187,14 @@
             errorLabelContainer: '#eventErrorMsg',
             submitHandler: function (form, e) {
                 e.preventDefault();
+                // split date/time into arrays
+                var date = $('#date').val().split('-');
+                var time = $('#time').val().split(':')
 
-                var timestamp = new Date().toISOString();
+                // create timestamp from the date and time arrays
+                var timestamp = new Date(date[0], date[1] - 1, date[2], time[0], time[1], 00, 00).toISOString();                
 
+                //send post request
                 $.post('/event', {
                     name: $('#name').val(),
                     description: $('#description').val(),

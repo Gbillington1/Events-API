@@ -9,6 +9,7 @@ const events = require('./models/events');
 const rsvps = require('./models/rsvps');
 const apiError = require("./errors/apiError");
 const utf8 = require("utf8");
+const { eventNames } = require('process');
 let isDbUp = false;
 
 // use cookie-parsing middleware
@@ -122,7 +123,12 @@ app.post('/user', function (req, res) {
 app.get('/event', function (req, res) {
     events.upcoming(checkDb()).then(function (rows) {
         if (rows.length > 0) {
-            res.send(rows)
+            var data = {};
+            for (var i = 0; i < rows.length; i++) {
+                data[i] = events.format(rows[i])
+            }
+            console.log(rows, data)
+            res.send(data)
         } else {
             res.end();
         }
@@ -133,7 +139,9 @@ app.get('/event', function (req, res) {
 // reveive post request to /addEvent endpoint
 app.post('/event', function (req, res) {
     // form eventData with data form frontend
-    var eventData = req.body;
+    console.log(req.body)
+    var eventData = events.validate(req.body);
+    console.log(eventData)
     // add event to DB
     events.create(checkDb(), eventData);
 
@@ -145,7 +153,10 @@ app.post('/event', function (req, res) {
             return;
         }
 
-        res.send(rows[rows.length - 1]);
+        console.log(rows[rows.length - 1])
+        var data = events.format(rows[rows.length - 1]);
+        console.log(data)
+        res.send(data);
     }).catch(err => { console.error(err) })
 });
 
