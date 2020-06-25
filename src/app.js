@@ -101,23 +101,30 @@ app.get('/user', function (req, res) {
 })
 
 // receive post request to /user endpoint
-app.post('/user', function (req, res) {
+app.post('/user', function (req, res, next) {
+    var isErr = false;
     // add data from form to userData obj
     var userData = users.validate(req.body);
 
-    // add userData to DB
-    users.create(checkDb(), userData)
-    // returns users table => sends it to frontend
-    users.all(checkDb()).then(function (rows) {
+    // add userData to DB => check for errors
+    users.create(checkDb(), userData).then(function() {
 
-        var data = users.format(rows[rows.length - 1]);
+         // returns users table => sends it to frontend
+         users.all(checkDb()).then(function (rows) {
+    
+            var data = users.format(rows[rows.length - 1]);
+    
+            res.cookie('userId', data.userId);
+            res.cookie('usename', data.username);
+            res.send(data);
+    
+        }).catch(err => { console.error(err) })
 
-        res.cookie('userId', data.userId);
-        res.cookie('usename', data.username);
-        res.send(data);
+    }).catch(err => {
 
-    }).catch(err => { console.error(err) })
-
+        next(err)
+        
+    });
 })
 
 app.get('/event', function (req, res) {
@@ -184,14 +191,17 @@ app.use(function (err, req, res, next) {
             case 701:
                 httpCode = 412;
                 break;
+
+            case 23505:
+                httpCode = 409;
+                break;
         }
-        // bad request err
         var output = {
             error: err.output()
         }
     }
-    res.status(httpCode);
     console.error(err)
+    res.status(httpCode);
     res.send(output);
 })
 

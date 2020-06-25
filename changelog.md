@@ -1,6 +1,10 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/24/2020]
+### Added
+ - Error handling for unique constraint violation
+
 ## [06/23/2020]
 ### Added
  - Unique constraint to username and email columns in DB
