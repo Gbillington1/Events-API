@@ -105,4 +105,4 @@ Code | Message | HTTP code | Description | Reference
 320 | The provided refresh token cannot be used to renew an access token. Client login should be attempted. | 403 | | [User Authentication](Authentication/OAuthAuthentication.md)
 700 | The requested operation is not permitted on this resource. | 412 | A precondition was not met for this request. | 
 701 | Invalid request params | 412 | | 
-23505 | Key (username or email)=(value) already exists | 409 | A duplicate username or email attempted to enter the database, but that violates the unique constraint in the usersname/email columns. |
+23505 | Key (username or email)=(value) already exists | 409 | A duplicate username or email was provided in this request |
