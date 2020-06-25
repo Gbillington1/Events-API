@@ -106,7 +106,7 @@ app.post('/user', function (req, res, next) {
     // add data from form to userData obj
     var userData = users.validate(req.body);
 
-    // add userData to DB => check for errors
+    // add userData to DB => return user
     users.create(checkDb(), userData).then(function() {
 
          // returns users table => sends it to frontend
@@ -123,7 +123,7 @@ app.post('/user', function (req, res, next) {
     }).catch(err => {
 
         next(err)
-        
+
     });
 })
 
