@@ -3,8 +3,10 @@ All commits are documented in this file.
 
 ## [06/27/2020]
 ### Added
- - error lookup in apiError.js (given only the error code)
- - frontend error handling for duplicates (very very basic and probably pretty bad tbh)
+ - error lookup in `apiError.js` (given only the error code)
+ - frontend error handling for duplicates 
+### Removed
+ - utf-8 encoding and decoding in `events.js` and `users.js`
 
 ## [06/24/2020]
 ### Added

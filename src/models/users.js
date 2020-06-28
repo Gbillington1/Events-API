@@ -1,4 +1,3 @@
-const utf8 = require('utf8');
 const apiError = require('../errors/apiError');
 
 // create a user
@@ -45,10 +44,10 @@ function format(data) {
 
     // decode data and form frontend data obj
     frontendData.userId = data.userid;
-    frontendData.firstName = utf8.decode(data.first_name);
-    frontendData.lastName = utf8.decode(data.last_name);
-    frontendData.username = utf8.decode(data.username);
-    frontendData.email = utf8.decode(data.email);
+    frontendData.firstName = data.first_name;
+    frontendData.lastName = data.last_name;
+    frontendData.username = data.username;
+    frontendData.email = data.email;
 
     return frontendData;
 }
@@ -73,7 +72,7 @@ function validate(data) {
 
     // trim extraneous chars and encode to UTF-8
     for (var i = 0; i < keys.length; i++) {
-        cleanInputs[keys[i]] = utf8.encode(values[i].trim());
+        cleanInputs[keys[i]] = values[i].trim();
     }
 
     return cleanInputs;

@@ -1,5 +1,4 @@
 var errMessage;
-var httpCode;
 
 class apiError extends Error {
     constructor(errCode, msg) {

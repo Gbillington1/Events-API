@@ -8,7 +8,6 @@ const users = require('./models/users');
 const events = require('./models/events');
 const rsvps = require('./models/rsvps');
 const apiError = require("./errors/apiError");
-const utf8 = require("utf8");
 let isDbUp = false;
 
 // use cookie-parsing middleware

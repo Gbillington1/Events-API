@@ -1,5 +1,3 @@
-const utf8 = require('utf8');
-
 // check if string is ISO-8601 format 
 function isIsoDate(str) {
     if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
@@ -54,8 +52,8 @@ function format(data) {
 
     // decode data and form frontend data obj
     frontendData.eventId = data.event_id;
-    frontendData.name = utf8.decode(data.event_name);
-    frontendData.description = utf8.decode(data.event_description);
+    frontendData.name = data.event_name;
+    frontendData.description = data.event_description;
     frontendData.timestamp = data.event_timestamp;
 
     return frontendData;
@@ -77,7 +75,7 @@ function validate(data) {
     // trim extraneous chars and encode to UTF-8
     for (var i = 0; i < keys.length; i++) {
         if (keys[i] != 'timestamp') {
-            cleanInputs[keys[i]] = utf8.encode(values[i].trim());
+            cleanInputs[keys[i]] = values[i].trim();
         } else {
             cleanInputs[keys[i]] = values[i].trim();
         }
