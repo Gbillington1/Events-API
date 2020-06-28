@@ -1,6 +1,10 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/27/2020]
+### Added
+ - error lookup in apiError.js (given only the error code)
+
 ## [06/24/2020]
 ### Added
  - Error handling for unique constraint violation

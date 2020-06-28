@@ -6,6 +6,7 @@ function create(client, data) {
     return new Promise(function (resolve, reject) {
         client.query('INSERT INTO users (first_name, last_name, username, email, user_password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.username, data.email, data.password]).then().catch((err) => {
             reject(new apiError(parseInt(err.code), err.detail));
+            // reject(new apiError(parseInt(err.code)));
         });
     })
 }

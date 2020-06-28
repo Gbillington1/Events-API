@@ -9,7 +9,6 @@ const events = require('./models/events');
 const rsvps = require('./models/rsvps');
 const apiError = require("./errors/apiError");
 const utf8 = require("utf8");
-const { eventNames } = require('process');
 let isDbUp = false;
 
 // use cookie-parsing middleware
@@ -34,6 +33,7 @@ app.use(function (req, res, next) {
     for (var i = 0; i < values.length; i++) {
         if (typeof values[i] == typeof undefined || values[i] == "") {
             var err = new apiError(701, "Invalid request params at " + keys[i]);
+            // var err = new apiError(701);
             next(err);
             return;
         }
@@ -169,39 +169,12 @@ app.post('/event', function (req, res) {
 // error handling
 app.use(function (err, req, res, next) {
     if (err instanceof apiError) {
-        var httpCode;
-        switch (err.code) {
-            case 300:
-            case 301:
-            case 302:
-            case 310:
-            case 312:
-                httpCode = 401;
-                break;
-
-            case 311:
-                httpCode = 400;
-                break;
-
-            case 320:
-                httpCode = 403;
-                break;
-
-            case 700:
-            case 701:
-                httpCode = 412;
-                break;
-
-            case 23505:
-                httpCode = 409;
-                break;
-        }
         var output = {
             error: err.output()
         }
     }
     console.error(err)
-    res.status(httpCode);
+    res.status(err.httpCode);
     res.send(output);
 })
 
