@@ -33,7 +33,6 @@ app.use(function (req, res, next) {
     for (var i = 0; i < values.length; i++) {
         if (typeof values[i] == typeof undefined || values[i] == "") {
             var err = new apiError(701, "Invalid request params at " + keys[i]);
-            // var err = new apiError(701);
             next(err);
             return;
         }
@@ -102,18 +101,15 @@ app.get('/user', function (req, res) {
 
 // receive post request to /user endpoint
 app.post('/user', function (req, res, next) {
-    var isErr = false;
     // add data from form to userData obj
     var userData = users.validate(req.body);
 
     // add userData to DB => return user
     users.create(checkDb(), userData).then(function() {
-
          // returns users table => sends it to frontend
          users.all(checkDb()).then(function (rows) {
-    
             var data = users.format(rows[rows.length - 1]);
-    
+            console.log(data)
             res.cookie('userId', data.userId);
             res.cookie('usename', data.username);
             res.send(data);
@@ -168,13 +164,15 @@ app.post('/event', function (req, res) {
 
 // error handling
 app.use(function (err, req, res, next) {
+    var httpCode;
     if (err instanceof apiError) {
+        httpCode = err.httpCode
         var output = {
             error: err.output()
         }
     }
     console.error(err)
-    res.status(err.httpCode);
+    res.status(httpCode);
     res.send(output);
 })
 

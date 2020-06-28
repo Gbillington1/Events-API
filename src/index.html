@@ -116,6 +116,10 @@
         form .error {
             color: #ff0000;
         }
+
+        #userErrorMsg {
+            color: #ff0000
+        }
     </style>
 
 </head>
@@ -212,17 +216,32 @@
                 submitHandler: function (form, e) {
                     e.preventDefault();
 
-                    $.post('/user', {
-                        firstName: $('#postFirstName').val(),
-                        lastName: $('#postLastName').val(),
-                        username: $('#postUsername').val(),
-                        email: $('#postEmail').val(),
-                        password: $('#postPassword').val()
-                    }, function (data, status) {
-                        window.location.href = '/user/' + data.username;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user',
+                        data: {
+                            firstName: $('#postFirstName').val(),
+                            lastName: $('#postLastName').val(),
+                            username: $('#postUsername').val(),
+                            email: $('#postEmail').val(),
+                            password: $('#postPassword').val()
+                        },
+                        success: function (data, status) {
+                            window.location.href = '/user/' + data.username;
+                        },
+                        error: function (xhr, status, error) {
+                            $('#userErrorMsg').css('display', 'block')
+                            if (xhr.responseJSON.error) {
+                                if (xhr.responseJSON.error.message.includes('username')) {
+                                    $('#userErrorMsg').html("That username already exists.");
+                                } else if (xhr.responseJSON.error.message.includes('email')) {
+                                    $('#userErrorMsg').html("That email address already exists.");
+                                }
+                            }
+                        }
                     })
                 }
-            });
+            })
         });
 
     </script>
