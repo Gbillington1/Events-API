@@ -231,12 +231,19 @@
                         },
                         error: function (xhr, status, error) {
                             $('#userErrorMsg').css('display', 'block')
-                            if (xhr.responseJSON.error) {
+
+                            if (typeof xhr.responseJSON.error == 'object') {
+
                                 if (xhr.responseJSON.error.message.includes('username')) {
+
                                     $('#userErrorMsg').html("That username already exists.");
+
                                 } else if (xhr.responseJSON.error.message.includes('email')) {
+
                                     $('#userErrorMsg').html("That email address already exists.");
+
                                 }
+
                             }
                         }
                     })
