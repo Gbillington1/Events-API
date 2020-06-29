@@ -104,16 +104,12 @@ app.post('/user', function (req, res, next) {
     var userData = users.validate(req.body);
 
     // add userData to DB => return user
-    users.create(checkDb(), userData).then(function() {
-         // returns users table => sends it to frontend
-         users.all(checkDb()).then(function (rows) {
-            var data = users.format(rows[rows.length - 1]);
-            console.log(data)
-            res.cookie('userId', data.userId);
+    users.create(checkDb(), userData).then(function(data) {
+
+            res.cookie('userId', data.id);
             res.cookie('usename', data.username);
-            res.send(data);
+            res.send(data.output());
     
-        }).catch(err => { console.error(err) })
 
     }).catch(err => {
 
@@ -169,9 +165,11 @@ app.use(function (err, req, res, next) {
         var output = {
             error: err.output()
         }
+        res.status(httpCode);
+    } else {
+        httpCode = err.code;
     }
     console.error(err)
-    res.status(httpCode);
     res.send(output);
 })
 

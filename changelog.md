@@ -1,6 +1,11 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/28/2020]
+### Added
+ - User class
+ - `users.create()` returns a `new User`
+
 ## [06/27/2020]
 ### Added
  - error lookup in `apiError.js` (given only the error code)

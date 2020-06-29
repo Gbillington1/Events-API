@@ -1,13 +1,39 @@
+class User {
+    constructor(userid, firstName, lastName, username, email) {
+        this.id = userid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+    }
+
+    output() {
+        return {
+            "data": {
+                "id": this.id,
+                "firstName": this.firstName,
+                "lastName": this.lastName,
+                "username": this.username,
+                "email": this.email
+            }
+        }
+    }
+}
+
 const apiError = require('../errors/apiError');
 
 // create a user
 function create(client, data) {
     return new Promise(function (resolve, reject) {
-        client.query('INSERT INTO users (first_name, last_name, username, email, user_password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.username, data.email, data.password]).then(() => resolve()).catch((err) => {
-            reject(new apiError(parseInt(err.code), err.detail));
-            // reject(new apiError(parseInt(err.code)));
-        });
-    })
+        client.query('INSERT INTO users (first_name, last_name, username, email, user_password) VALUES ($1, $2, $3, $4, $5) RETURNING userid', [data.firstName, data.lastName, data.username, data.email, data.password]).then((res) => {
+            var user = new User(res.rows[0].userid, data.firstName, data.lastName, data.username, data.email)
+            resolve(user);
+        }).catch((err) => {
+            throw new apiError(parseInt(err.code), err.detail);
+        })
+    }).catch((err) => {
+        reject(new apiError(parseInt(err.code), err.detail));
+    });
 }
 
 // return user with specific id
@@ -57,7 +83,7 @@ function validate(data) {
     var cleanInputs = {};
     var keys = Object.keys(data);
     var values = Object.values(data);
-    
+
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     // check email address
@@ -76,7 +102,7 @@ function validate(data) {
     }
 
     return cleanInputs;
-    
+
 }
 
 module.exports = {
