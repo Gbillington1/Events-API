@@ -32,7 +32,6 @@ function create(client, data) {
             resolve(user);
 
         }).catch((err) => {
-            // this error isn't being handled "UnhandledPromiseRejectionWarning:"
             reject(new apiError(parseInt(err.code), err.detail));
         })
     })
