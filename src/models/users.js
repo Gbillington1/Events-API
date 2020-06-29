@@ -26,14 +26,16 @@ const apiError = require('../errors/apiError');
 function create(client, data) {
     return new Promise(function (resolve, reject) {
         client.query('INSERT INTO users (first_name, last_name, username, email, user_password) VALUES ($1, $2, $3, $4, $5) RETURNING userid', [data.firstName, data.lastName, data.username, data.email, data.password]).then((res) => {
+
             var user = new User(res.rows[0].userid, data.firstName, data.lastName, data.username, data.email)
+
             resolve(user);
+
         }).catch((err) => {
-            throw new apiError(parseInt(err.code), err.detail);
+            // this error isn't being handled "UnhandledPromiseRejectionWarning:"
+            reject(new apiError(parseInt(err.code), err.detail));
         })
-    }).catch((err) => {
-        reject(new apiError(parseInt(err.code), err.detail));
-    });
+    })
 }
 
 // return user with specific id

@@ -5,6 +5,9 @@ All commits are documented in this file.
 ### Added
  - User class
  - `users.create()` returns a `new User`
+ 
+### Changed
+ - apiError throwing in `users.create()` (adding user class messed it up)
 
 ## [06/27/2020]
 ### Added

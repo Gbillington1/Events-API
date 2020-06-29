@@ -103,7 +103,7 @@ app.post('/user', function (req, res, next) {
     // add data from form to userData obj
     var userData = users.validate(req.body);
 
-    // add userData to DB => return user
+    // add userData to DB => return new User
     users.create(checkDb(), userData).then(function(data) {
 
             res.cookie('userId', data.id);
