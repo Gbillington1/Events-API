@@ -8,6 +8,7 @@ All commits are documented in this file.
  
 ### Changed
  - apiError throwing in `users.create()` (adding user class messed it up)
+ - frontend to recieve new User object
 
 ## [06/27/2020]
 ### Added
