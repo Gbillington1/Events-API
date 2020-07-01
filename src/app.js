@@ -87,16 +87,16 @@ app.get('/user/:username', function (req, res) {
     })
 })
 
-app.get('/user', function (req, res) {
+// app.get('/user', function (req, res) {
 
-    users.retrieve(checkDb(), req.query.userId).then(function (rows) {
+//     users.retrieve(checkDb(), req.query.userId).then(function (rows) {
 
-        var data = users.format(rows[0]);
+//         var data = users.format(rows[0]);
 
-        res.send(data)
+//         res.send(data)
 
-    }).catch(err => { console.error(err) })
-})
+//     }).catch(err => { console.error(err) })
+// })
 
 // receive post request to /user endpoint
 app.post('/user', function (req, res, next) {

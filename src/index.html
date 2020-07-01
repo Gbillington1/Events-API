@@ -226,9 +226,9 @@
                             email: $('#postEmail').val(),
                             password: $('#postPassword').val()
                         },
-                        success: function (data, status) {
-                            console.log(data.data)
-                            window.location.href = '/user/' + data.data.username;
+                        success: function (resData, status) {
+                            console.log(resData.data)
+                            window.location.href = '/user/' + resData.data.username;
                         },
                         error: function (xhr, status, error) {
                             $('#userErrorMsg').css('display', 'block')
