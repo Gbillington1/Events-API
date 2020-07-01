@@ -1,6 +1,10 @@
 # Changelog
 All commits are documented in this file.
 
+## [06/30/2020]
+### Changed
+ - moved `user.js` functions into the `User` class (unfinished, throws an error)
+
 ## [06/28/2020]
 ### Added
  - User class
@@ -116,7 +120,8 @@ All commits are documented in this file.
  - basic tables for api
  - changelog
 
-[06/28/2020]: https://github.com/Gbillington1/Events-API/compare/1fe593d..HEAD
+[06/30/2020]: https://github.com/Gbillington1/Events-API/compare/7d89bac..HEAD
+[06/28/2020]: https://github.com/Gbillington1/Events-API/compare/1fe593d..a30b95c
 [06/27/2020]: https://github.com/Gbillington1/Events-API/compare/d6fbea3..83cd0e4
 [06/24/2020]: https://github.com/Gbillington1/Events-API/compare/c064bfc..2245766
 [06/23/2020]: https://github.com/Gbillington1/Events-API/compare/e12d10f..95740b2
