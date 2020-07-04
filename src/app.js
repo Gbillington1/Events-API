@@ -9,6 +9,7 @@ const events = require('./models/events');
 const rsvps = require('./models/rsvps');
 const apiError = require("./errors/apiError");
 let isDbUp = false;
+var currentUser;
 
 // use cookie-parsing middleware
 app.use(cookieParser());
@@ -87,16 +88,16 @@ app.get('/user/:username', function (req, res) {
     })
 })
 
-// app.get('/user', function (req, res) {
+app.get('/user', function (req, res) {
 
-//     users.retrieve(checkDb(), req.query.userId).then(function (rows) {
+    users.retrieve(checkDb(), req.query.userId).then(function (response) {
 
-//         var data = users.format(rows[0]);
+        var currentUser = response;
 
-//         res.send(data)
+        res.send(currentUser.output())
 
-//     }).catch(err => { console.error(err) })
-// })
+    }).catch(err => { console.error(err) })
+})
 
 // receive post request to /user endpoint
 app.post('/user', function (req, res, next) {
@@ -104,12 +105,13 @@ app.post('/user', function (req, res, next) {
     var userData = users.validate(req.body);
 
     // add userData to DB => return new User
-    users.create(checkDb(), userData).then(function(data) {
+    users.create(checkDb(), userData).then(function (data) {
 
-            res.cookie('userId', data.id);
-            res.cookie('usename', data.username);
-            res.send(data.output());
-    
+        currentUser = data;
+        res.cookie('userId', data.id);
+        res.cookie('username', data.username);
+        res.send(currentUser.output());
+
 
     }).catch(err => {
 

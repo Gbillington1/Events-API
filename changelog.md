@@ -1,9 +1,14 @@
 # Changelog
 All commits are documented in this file.
 
+## [07/03/2020]
+
+### Changed
+ - Moved `create()` and `retrieve()` out of User class
+
 ## [06/30/2020]
 ### Changed
- - moved `user.js` functions into the `User` class (unfinished, throws an error)
+ - moved `users.js` functions into the `User` class (unfinished, throws an error)
 
 ## [06/28/2020]
 ### Added
