@@ -163,16 +163,19 @@ app.post('/event', function (req, res) {
 app.use(function (err, req, res, next) {
     var httpCode;
     if (err instanceof apiError) {
+
         httpCode = err.httpCode
-        var output = {
-            error: err.output()
-        }
         res.status(httpCode);
+
     } else {
+
         httpCode = err.code;
+
     }
+
     console.error(err)
-    res.send(output);
+    res.send(err.output());
+    
 })
 
 // listen for connection on localhost

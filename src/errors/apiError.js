@@ -8,7 +8,7 @@ class apiError extends Error {
                 errMessage = "Your request could not be completed because it was not properly authenticated.";
                 httpCode = 401;
                 break;
-            
+
             case 301:
                 errMessage = "A valid access token is required to access this resource.";
                 httpCode = 401;
@@ -33,7 +33,7 @@ class apiError extends Error {
                 httpCode = 401;
                 break;
 
-            case 320: 
+            case 320:
                 errMessage = "The provided refresh token cannot be used to renew an access token. Client login should be attempted.";
                 httpCode = 403;
                 break;
@@ -43,7 +43,7 @@ class apiError extends Error {
                 httpCode = 412;
                 break;
 
-            case 701: 
+            case 701:
                 errMessage = msg;
                 httpCode = 412;
                 break;
@@ -66,10 +66,13 @@ class apiError extends Error {
 
     output() {
         return {
-            "message": this.message,
-            "errCode": this.errCode,
-            "httpCode": this.httpCode
+            "error": {
+                "message": this.message,
+                "errCode": this.errCode,
+                "httpCode": this.httpCode
+            }
         }
+
     }
 
 }

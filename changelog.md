@@ -6,6 +6,7 @@ All commits are documented in this file.
 ### Changed
  - Moved `create()` and `retrieve()` out of User class
  - small variable changes on frontend
+ - apiError.output function
 
 ## [06/30/2020]
 ### Changed
