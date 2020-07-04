@@ -160,10 +160,9 @@
             $.get('/user', {
                 userId: id,
                 username: username
-            }, function (data, status) {
-                console.log(data)
-                $('#welcome').html('Welcome, ' + data.firstName + ' ' + data.lastName);
-                console.log(data)
+            }, function (res, status) {
+                $('#welcome').html('Welcome, ' + res.data.firstName + ' ' + res.data.lastName);
+                console.log(res)
             })
 
             $.get('/event', function (data, status) {
