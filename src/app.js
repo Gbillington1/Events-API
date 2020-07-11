@@ -1,3 +1,4 @@
+console.log('yeet')
 const express = require('express');
 const app = express();
 const port = parseInt(process.env.EXPOSED_PORT);
@@ -39,7 +40,7 @@ app.use(function (req, res, next) {
     }
     next();
 })
-
+console.log('bruh')
 //connect to DB 
 const client = new Client({
     connectionString: "postgres://root:pass@postgres:5432/events"
@@ -165,6 +166,7 @@ app.use(function (err, req, res, next) {
     if (err instanceof apiError) {
 
         httpCode = err.httpCode
+        err = err.output();
         res.status(httpCode);
 
     } else {
@@ -174,7 +176,7 @@ app.use(function (err, req, res, next) {
     }
 
     console.error(err)
-    res.send(err.output());
+    res.send(err);
     
 })
 
