@@ -1,8 +1,11 @@
 # Changelog
 All commits are documented in this file.
 
-## [07/03/2020]
+## [07/20/2020]
+### Added 
+ - frontend validation for sign in 
 
+## [07/03/2020]
 ### Changed
  - Moved `create()` and `retrieve()` out of User class
  - small variable changes on frontend
