@@ -162,7 +162,7 @@
                 Sign into your account
             </h1>
 
-            <form id='getUser'>
+            <form id='signIn'>
                 <label class='label1' class='col1' for='username'>Username:</label>
                 <input type='text' class='col2' id='getUsername' name='username' placeholder="Username here.">
 
@@ -252,7 +252,7 @@
 
 
             // sign in validation
-            $("#getUser").validate({
+            $("#signIn").validate({
                 rules: {
                     username: 'required',
                     password: {
@@ -273,35 +273,35 @@
                 submitHandler: function (form, e) {
                     e.preventDefault();
 
-                    // $.ajax({
-                    //     type: 'POST',
-                    //     url: '/user',
-                    //     data: {
-                    //         username: $('#postUsername').val(),
-                    //         password: $('#postPassword').val()
-                    //     },
-                    //     success: function (resData, status) {
-                    //         console.log(resData.data)
-                    //         window.location.href = '/user/' + resData.data.username;
-                    //     },
-                    //     error: function (xhr, status, error) {
-                    //         $('#userErrorMsg').css('display', 'block')
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user',
+                        data: {
+                            username: $('#postUsername').val(),
+                            password: $('#postPassword').val()
+                        },
+                        success: function (resData, status) {
+                            console.log(resData.data)
+                            window.location.href = '/user/' + resData.data.username;
+                        },
+                        error: function (xhr, status, error) {
+                            $('#userErrorMsg').css('display', 'block')
 
-                    //         if (typeof xhr.responseJSON.error == 'object') {
+                            if (typeof xhr.responseJSON.error == 'object') {
 
-                    //             if (xhr.responseJSON.error.message.includes('username')) {
+                                if (xhr.responseJSON.error.message.includes('username')) {
 
-                    //                 $('#userErrorMsg').html("Please enter your username");
+                                    $('#userErrorMsg').html("Please enter your username");
 
-                    //             } else if (xhr.responseJSON.error.message.includes('password')) {
+                                } else if (xhr.responseJSON.error.message.includes('password')) {
 
-                    //                 $('#userErrorMsg').html("Please enter your password");
+                                    $('#userErrorMsg').html("Please enter your password");
 
-                    //             }
+                                }
 
-                    //         }
-                    //     }
-                    // })
+                            }
+                        }
+                    })
                 }
             })
 
